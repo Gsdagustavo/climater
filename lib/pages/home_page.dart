@@ -15,29 +15,6 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: Text('Climater'), centerTitle: true),
 
-        drawer: Consumer<ThemeProvider>(
-          builder: (_, themeState, __) {
-            return Drawer(
-              child: Column(
-                children: [
-                  DrawerHeader(child: Icon(Icons.settings, size: 80)),
-                  ListTile(
-                    title: Text('Switch theme mode'),
-                    trailing: IconButton(
-                      onPressed: themeState.toggleTheme,
-                      icon: Icon(
-                        themeState.isDarkMode
-                            ? Icons.light_mode
-                            : Icons.dark_mode,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-
         body: Consumer<WeatherProvider>(
           builder: (_, weatherState, __) {
             final weatherData = weatherState.weatherData;
@@ -67,6 +44,29 @@ class HomePage extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 75),
               child: WeatherWidget(weatherData: weatherData),
+            );
+          },
+        ),
+
+        drawer: Consumer<ThemeProvider>(
+          builder: (_, themeState, __) {
+            return Drawer(
+              child: Column(
+                children: [
+                  DrawerHeader(child: Icon(Icons.settings, size: 80)),
+                  ListTile(
+                    title: Text('Switch theme mode'),
+                    trailing: IconButton(
+                      onPressed: themeState.toggleTheme,
+                      icon: Icon(
+                        themeState.isDarkMode
+                            ? Icons.light_mode
+                            : Icons.dark_mode,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),
