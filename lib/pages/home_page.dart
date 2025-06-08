@@ -12,12 +12,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => WeatherProvider(),
-      child: Consumer2<WeatherProvider, ThemeProvider>(
-        builder: (_, weatherState, themeState, __) {
-          return Scaffold(
-            appBar: AppBar(title: Text('Climater'), centerTitle: true),
+      child: Scaffold(
+        appBar: AppBar(title: Text('Climater'), centerTitle: true),
 
-            drawer: Drawer(
+        drawer: Consumer<ThemeProvider>(
+          builder: (_, themeState, __) {
+            return Drawer(
               child: Column(
                 children: [
                   DrawerHeader(child: Icon(Icons.settings, size: 80)),
@@ -34,45 +34,42 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            );
+          },
+        ),
 
-            body: Builder(
-              builder: (context) {
-                final weatherData = weatherState.weatherData;
+        body: Consumer<WeatherProvider>(
+          builder: (_, weatherState, __) {
+            final weatherData = weatherState.weatherData;
 
-                if (weatherState.isLoading) {
-                  return Center(child: CircularProgressIndicator());
-                }
+            if (weatherState.isLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-                if (weatherData == null) {
-                  return Center(
-                    child: Text(
-                      'An unknown error occurred',
-                      style: TextStyle(color: Colors.red.shade300),
-                    ),
-                  );
-                }
+            if (weatherData == null) {
+              return Center(
+                child: Text(
+                  'An unknown error occurred',
+                  style: TextStyle(color: Colors.red.shade300),
+                ),
+              );
+            }
 
-                if (weatherState.hasError) {
-                  return Center(
-                    child: Text(
-                      'Error: ${weatherState.errorMessage!}',
-                      style: TextStyle(color: Colors.red.shade300),
-                    ),
-                  );
-                }
+            if (weatherState.hasError) {
+              return Center(
+                child: Text(
+                  'Error: ${weatherState.errorMessage!}',
+                  style: TextStyle(color: Colors.red.shade300),
+                ),
+              );
+            }
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 45,
-                    vertical: 75,
-                  ),
-                  child: WeatherWidget(weatherData: weatherData),
-                );
-              },
-            ),
-          );
-        },
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 75),
+              child: WeatherWidget(weatherData: weatherData),
+            );
+          },
+        ),
       ),
     );
   }
