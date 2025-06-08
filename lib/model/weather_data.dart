@@ -3,20 +3,25 @@ import 'package:geocode/geocode.dart';
 class WeatherData {
   final Address address;
   final double temperature;
+  final String main;
+  final String description;
+
+  final double maxTemperature;
+  final double minTemperature;
   final double feelsLike;
   final int pressure;
   final int humidity;
-  final String main;
-  final String description;
 
   WeatherData({
     required this.address,
     required this.temperature,
+    required this.main,
+    required this.description,
+    required this.maxTemperature,
+    required this.minTemperature,
     required this.feelsLike,
     required this.pressure,
     required this.humidity,
-    required this.main,
-    required this.description,
   });
 
   /// Returns a capitalized version of the [description]

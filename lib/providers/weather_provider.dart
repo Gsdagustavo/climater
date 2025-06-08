@@ -84,6 +84,8 @@ class WeatherProvider with ChangeNotifier {
       feelsLike: main['feels_like'],
       pressure: main['pressure'],
       humidity: main['humidity'],
+      maxTemperature: main['temp_max'],
+      minTemperature: main['temp_min'],
     );
   }
 

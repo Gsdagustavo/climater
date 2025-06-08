@@ -42,8 +42,11 @@ class HomePage extends StatelessWidget {
             }
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 75),
-              child: WeatherWidget(weatherData: weatherData),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 50),
+              child: RefreshIndicator(
+                onRefresh: weatherState.getWeatherData,
+                child: WeatherWidget(weatherData: weatherData),
+              ),
             );
           },
         ),
@@ -107,7 +110,57 @@ class WeatherWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+
+        Padding(padding: EdgeInsets.all(32)),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          spacing: 15,
+          children: [
+            FabContainer(
+              child: Text(
+                'Min: ${weatherData.minTemperature.toStringAsFixed(1)} °C',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ),
+
+            FabContainer(
+              child: Text(
+                'Max: ${weatherData.maxTemperature.toStringAsFixed(1)} °C',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+
+        Padding(padding: EdgeInsetsGeometry.all(12)),
+
+        FabContainer(
+          child: Text(
+            'Humidity: ${weatherData.humidity.toStringAsFixed(0)}%',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class FabContainer extends StatelessWidget {
+  const FabContainer({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(12),
+      ),
+
+      padding: EdgeInsets.all(32),
+      child: Center(child: child),
     );
   }
 }
