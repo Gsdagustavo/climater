@@ -3,20 +3,46 @@ import 'package:flutter/widgets.dart';
 
 class WeatherProvider with ChangeNotifier {
   final cityController = TextEditingController(text: 'London');
+  WeatherData? weatherData;
 
+  bool isLoading = false;
   bool hasError = false;
   String? errorMessage;
 
-  Future<String?> getWeatherData() async {
+  WeatherProvider() {
+    _init();
+  }
+
+  _init() async {
+    await getWeatherData();
+  }
+
+  Future<void> getWeatherData() async {
+    isLoading = true;
+    notifyListeners();
+
     final String city = cityController.text;
     final data = await WeatherService().fetchWeatherData(city: city);
 
     if (data == null || data.isEmpty) {
       hasError = true;
       errorMessage = 'An error occurred while trying to fetch the weather data';
-      return null;
+      return;
     }
 
-    return '${data['name']}: ${data['main']['temp']} C';
+    hasError = false;
+    errorMessage = null;
+
+    isLoading = false;
+
+    weatherData = WeatherData(city, data['main']['temp']);
+    notifyListeners();
   }
+}
+
+class WeatherData {
+  final String city;
+  final double temperature;
+
+  WeatherData(this.city, this.temperature);
 }

@@ -13,26 +13,45 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: Consumer<WeatherProvider>(
             builder: (_, state, __) {
-              return FutureBuilder(
-                future: state.getWeatherData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  }
+              final weatherData = state.weatherData;
 
-                  final String? data = snapshot.data;
+              if (state.isLoading) {
+                return CircularProgressIndicator();
+              }
 
-                  if (data == null) {
-                    return Text(snapshot.error.toString());
-                  }
+              if (weatherData == null) {
+                return Text(
+                  'An unknown error occurred',
+                  style: TextStyle(color: Colors.red),
+                );
+              }
 
-                  return Text(snapshot.data!);
-                },
-              );
+              if (state.hasError) {
+                return Text(
+                  'Error: ${state.errorMessage!}',
+                  style: TextStyle(color: Colors.red),
+                );
+              }
+
+              return WeatherWidget(weatherData: weatherData);
             },
           ),
         ),
       ),
+    );
+  }
+}
+
+class WeatherWidget extends StatelessWidget {
+  const WeatherWidget({super.key, required this.weatherData});
+
+  final WeatherData weatherData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Text('${weatherData.city}: ${weatherData.temperature} C')],
     );
   }
 }
