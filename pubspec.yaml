@@ -40,6 +40,7 @@ dependencies:
   geocoding: ^4.0.0
   geocode: ^1.0.3
   geolocator: ^14.0.1
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
