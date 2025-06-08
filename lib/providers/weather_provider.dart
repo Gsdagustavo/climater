@@ -3,13 +3,22 @@ import 'package:flutter/widgets.dart';
 import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 
-class WeatherProvider with ChangeNotifier {
-  final cityController = TextEditingController(text: 'London');
-  WeatherData? weatherData;
+import '../model/weather_data.dart';
 
-  bool isLoading = false;
-  bool hasError = false;
-  String? errorMessage;
+class WeatherProvider with ChangeNotifier {
+  WeatherData? _weatherData;
+
+  bool _isLoading = false;
+  bool _hasError = false;
+  String? _errorMessage;
+
+  WeatherData? get weatherData => _weatherData;
+
+  bool get isLoading => _isLoading;
+
+  bool get hasError => _hasError;
+
+  String? get errorMessage => _errorMessage;
 
   WeatherProvider() {
     _init();
@@ -20,62 +29,81 @@ class WeatherProvider with ChangeNotifier {
   }
 
   Future<void> getWeatherData() async {
-    isLoading = true;
+    _isLoading = true;
     notifyListeners();
 
-    final String city = cityController.text;
-    final data = await WeatherService().fetchWeatherData(city: city);
+    final position = await _getPosition();
 
-    if (data == null || data.isEmpty) {
-      hasError = true;
-      errorMessage = 'An error occurred while trying to fetch the weather data';
+    /// TODO: add proper error handling
+    if (position == null) {
       return;
     }
 
-    hasError = false;
-    errorMessage = null;
+    final data = await WeatherService().fetchWeatherData(
+      latitude: position.latitude,
+      longitude: position.latitude,
+    );
 
-    isLoading = false;
+    if (data == null || data.isEmpty) {
+      _hasError = true;
+      _errorMessage =
+          'An error occurred while trying to fetch the weather data';
+      _isLoading = false;
+      return;
+    }
 
-    weatherData = WeatherData(city, data['main']['temp']);
+    _hasError = false;
+    _errorMessage = null;
+    _isLoading = false;
+
+    final Address? address = await _getAddress();
+
+    /// TODO: add proper error handling
+    if (address == null) {
+      return;
+    }
+
+    _weatherData = _formatWeatherData(main: data['main'], address: address);
     notifyListeners();
   }
 
-  Future<void> getCityName() async {
-    print('called get city nameawdouhawudiowhduowahiuodwhiudwo');
+  WeatherData _formatWeatherData({
+    required Map<String, dynamic> main,
+    required Address address,
+  }) {
+    return WeatherData(
+      address: address,
+      temperature: main['temp'],
+      feelsLike: main['feels_like'],
+      pressure: main['pressure'],
+      humidity: main['humidity'],
+    );
+  }
 
-    final LocationPermission locationPermission;
-    locationPermission = await Geolocator.requestPermission();
+  /// Returns an [Address] based on the current [Position]
+  Future<Address?> _getAddress() async {
+    final position = await _getPosition();
 
-    print('ASKED PERMISSION RESULT: $locationPermission');
-
-    switch (locationPermission) {
-      case LocationPermission.denied:
-      case LocationPermission.deniedForever:
-      case LocationPermission.unableToDetermine:
-        return;
-      case LocationPermission.always:
-      case LocationPermission.whileInUse:
+    /// TODO: add proper error handling
+    if (position == null) {
+      return null;
     }
 
+    final address = await GeoCode().reverseGeocoding(
+      latitude: position.latitude,
+      longitude: position.longitude,
+    );
+
+    return address;
+  }
+
+  /// Returns the current [Position]
+  Future<Position?> _getPosition() async {
+    await Geolocator.requestPermission();
     final position = await Geolocator.getCurrentPosition(
       locationSettings: LocationSettings(accuracy: LocationAccuracy.medium),
     );
 
-    final lat = position.latitude;
-    final long = position.longitude;
-
-    final address = await GeoCode().reverseGeocoding(
-      latitude: lat,
-      longitude: long,
-    );
-    print(address);
+    return position;
   }
-}
-
-class WeatherData {
-  final String city;
-  final double temperature;
-
-  WeatherData(this.city, this.temperature);
 }

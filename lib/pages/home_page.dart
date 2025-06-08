@@ -2,6 +2,8 @@ import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/weather_data.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -12,39 +14,51 @@ class HomePage extends StatelessWidget {
       child: Consumer<WeatherProvider>(
         builder: (_, state, __) {
           return Scaffold(
-            body: Center(
-              child: Builder(
-                builder: (context) {
-                  final weatherData = state.weatherData;
+            appBar: AppBar(title: Text('Climater'), centerTitle: true),
 
-                  if (state.isLoading) {
-                    return CircularProgressIndicator();
-                  }
+            body: Builder(
+              builder: (context) {
+                final weatherData = state.weatherData;
 
-                  if (weatherData == null) {
-                    return Text(
+                if (state.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (weatherData == null) {
+                  return Center(
+                    child: Text(
                       'An unknown error occurred',
                       style: TextStyle(color: Colors.red),
-                    );
-                  }
+                    ),
+                  );
+                }
 
-                  if (state.hasError) {
-                    return Text(
+                if (state.hasError) {
+                  return Center(
+                    child: Text(
                       'Error: ${state.errorMessage!}',
                       style: TextStyle(color: Colors.red),
-                    );
-                  }
+                    ),
+                  );
+                }
 
-                  return WeatherWidget(weatherData: weatherData);
-                },
-              ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 45,
+                    vertical: 150,
+                  ),
+                  child: WeatherWidget(weatherData: weatherData),
+                );
+              },
             ),
 
-            floatingActionButton: FloatingActionButton(onPressed: () async {
-              await state.getCityName();
-            },),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                await state.getWeatherData();
+              },
+            ),
           );
-        }
+        },
       ),
     );
   }
@@ -57,9 +71,22 @@ class WeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text('${weatherData.city}: ${weatherData.temperature} C')],
+    final address = weatherData.address;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${weatherData.temperature.toStringAsFixed(0)} °C',
+          style: TextStyle(
+            color: Colors.deepPurple.shade200,
+            fontSize: 72,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        Text(address.region!, style: TextStyle(fontSize: 32)),
+      ],
     );
   }
 }
