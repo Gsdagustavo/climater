@@ -94,26 +94,28 @@ class WeatherWidget extends StatelessWidget {
     final address = weatherData.address;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              '${weatherData.temperature.toStringAsFixed(0)} °C',
-              style: TextStyle(
-                color: Colors.deepPurple.shade400,
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            ImageBuilder(description: weatherData.description),
-          ],
+        Text(
+          address.city!,
+          style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
 
-        Text(address.region!, style: TextStyle(fontSize: 24)),
+        Padding(padding: EdgeInsets.all(12)),
+
         Text(weatherData.formatDescription(), style: TextStyle(fontSize: 24)),
+
+        ImageBuilder(description: weatherData.description),
+
+        Text(
+          '${weatherData.temperature.toStringAsFixed(0)} °C',
+          style: TextStyle(
+            // color: Colors.deepPurple.shade400,
+            fontSize: 72,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
@@ -162,10 +164,7 @@ class WeatherImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: Center(child: Image.asset(imagePath, fit: BoxFit.fill)),
-    );
+    return Center(child: Image.asset(imagePath, scale: 0.5));
   }
 }
 
