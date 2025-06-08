@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocode/geocode.dart';
@@ -63,16 +65,23 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = _formatWeatherData(main: data['main'], address: address);
+    _weatherData = _formatWeatherData(
+      main: data['main'],
+      weather: data['weather'][0],
+      address: address,
+    );
     notifyListeners();
   }
 
   WeatherData _formatWeatherData({
     required Map<String, dynamic> main,
+    required Map<String, dynamic> weather,
     required Address address,
   }) {
     return WeatherData(
       address: address,
+      main: weather['main'],
+      description: weather['description'],
       temperature: main['temp'],
       feelsLike: main['feels_like'],
       pressure: main['pressure'],
