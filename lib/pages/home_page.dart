@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/weather_data.dart';
+import '../widgets/fab_container.dart';
+import '../widgets/weather_image.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -146,25 +148,6 @@ class WeatherWidget extends StatelessWidget {
   }
 }
 
-class FabContainer extends StatelessWidget {
-  const FabContainer({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(12),
-      ),
-
-      padding: EdgeInsets.all(32),
-      child: Center(child: child),
-    );
-  }
-}
-
 class ImageBuilder extends StatelessWidget {
   const ImageBuilder({super.key, required this.description});
 
@@ -201,29 +184,6 @@ class ImageBuilder extends StatelessWidget {
   }
 }
 
-class WeatherImage extends StatelessWidget {
-  const WeatherImage({super.key, required this.imagePath});
-
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Image.asset(imagePath, scale: 0.5));
-  }
-}
-
-enum Weather {
-  clearSky,
-  fewClouds,
-  scatteredClouds,
-  brokenClouds,
-  showerRain,
-  rain,
-  thunderstorm,
-  snow,
-  mist,
-}
-
 Weather parseWeather(String description) {
   switch (description.toLowerCase()) {
     case 'clear sky':
@@ -247,4 +207,16 @@ Weather parseWeather(String description) {
     default:
       return Weather.clearSky;
   }
+}
+
+enum Weather {
+  clearSky,
+  fewClouds,
+  scatteredClouds,
+  brokenClouds,
+  showerRain,
+  rain,
+  thunderstorm,
+  snow,
+  mist,
 }

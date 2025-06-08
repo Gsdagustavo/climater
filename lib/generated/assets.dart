@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String climater = '.env';
+  static const String generatedAssets = 'lib/generated/assets.dart';
   static const String images01d2x = 'assets/images/01d@2x.png';
   static const String images01n2x = 'assets/images/01n@2x.png';
   static const String images02d2x = 'assets/images/02d@2x.png';
@@ -21,9 +22,18 @@ class Assets {
   static const String images13n2x = 'assets/images/13n@2x.png';
   static const String images50d2x = 'assets/images/50d@2x.png';
   static const String images50n2x = 'assets/images/50n@2x.png';
+  static const String libMain = 'lib/main.dart';
+  static const String modelWeatherData = 'lib/model/weather_data.dart';
+  static const String pagesHomePage = 'lib/pages/home_page.dart';
+  static const String providersThemeProvider = 'lib/providers/theme_provider.dart';
+  static const String providersWeatherProvider = 'lib/providers/weather_provider.dart';
   static const String screenshotsDrawerDark = 'assets/screenshots/drawer_dark.png';
   static const String screenshotsDrawerLight = 'assets/screenshots/drawer_light.png';
   static const String screenshotsHomeDark = 'assets/screenshots/home_dark.png';
   static const String screenshotsHomeLight = 'assets/screenshots/home_light.png';
+  static const String servicesWeatherService = 'lib/services/weather_service.dart';
+  static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';
+  static const String widgetsMyApp = 'lib/widgets/my_app.dart';
+  static const String widgetsWeatherImage = 'lib/widgets/weather_image.dart';
 
 }
