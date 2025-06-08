@@ -9,34 +9,42 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => WeatherProvider(),
-      child: Scaffold(
-        body: Center(
-          child: Consumer<WeatherProvider>(
-            builder: (_, state, __) {
-              final weatherData = state.weatherData;
+      child: Consumer<WeatherProvider>(
+        builder: (_, state, __) {
+          return Scaffold(
+            body: Center(
+              child: Builder(
+                builder: (context) {
+                  final weatherData = state.weatherData;
 
-              if (state.isLoading) {
-                return CircularProgressIndicator();
-              }
+                  if (state.isLoading) {
+                    return CircularProgressIndicator();
+                  }
 
-              if (weatherData == null) {
-                return Text(
-                  'An unknown error occurred',
-                  style: TextStyle(color: Colors.red),
-                );
-              }
+                  if (weatherData == null) {
+                    return Text(
+                      'An unknown error occurred',
+                      style: TextStyle(color: Colors.red),
+                    );
+                  }
 
-              if (state.hasError) {
-                return Text(
-                  'Error: ${state.errorMessage!}',
-                  style: TextStyle(color: Colors.red),
-                );
-              }
+                  if (state.hasError) {
+                    return Text(
+                      'Error: ${state.errorMessage!}',
+                      style: TextStyle(color: Colors.red),
+                    );
+                  }
 
-              return WeatherWidget(weatherData: weatherData);
-            },
-          ),
-        ),
+                  return WeatherWidget(weatherData: weatherData);
+                },
+              ),
+            ),
+
+            floatingActionButton: FloatingActionButton(onPressed: () async {
+              await state.getCityName();
+            },),
+          );
+        }
       ),
     );
   }

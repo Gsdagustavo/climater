@@ -37,6 +37,9 @@ dependencies:
   provider: ^6.1.5
   http: ^1.4.0
   flutter_dotenv: ^5.2.1
+  geocoding: ^4.0.0
+  geocode: ^1.0.3
+  geolocator: ^14.0.1
 
 dev_dependencies:
   flutter_test:

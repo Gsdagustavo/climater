@@ -1,5 +1,7 @@
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geocode/geocode.dart';
+import 'package:geolocator/geolocator.dart';
 
 class WeatherProvider with ChangeNotifier {
   final cityController = TextEditingController(text: 'London');
@@ -37,6 +39,37 @@ class WeatherProvider with ChangeNotifier {
 
     weatherData = WeatherData(city, data['main']['temp']);
     notifyListeners();
+  }
+
+  Future<void> getCityName() async {
+    print('called get city nameawdouhawudiowhduowahiuodwhiudwo');
+
+    final LocationPermission locationPermission;
+    locationPermission = await Geolocator.requestPermission();
+
+    print('ASKED PERMISSION RESULT: $locationPermission');
+
+    switch (locationPermission) {
+      case LocationPermission.denied:
+      case LocationPermission.deniedForever:
+      case LocationPermission.unableToDetermine:
+        return;
+      case LocationPermission.always:
+      case LocationPermission.whileInUse:
+    }
+
+    final position = await Geolocator.getCurrentPosition(
+      locationSettings: LocationSettings(accuracy: LocationAccuracy.medium),
+    );
+
+    final lat = position.latitude;
+    final long = position.longitude;
+
+    final address = await GeoCode().reverseGeocoding(
+      latitude: lat,
+      longitude: long,
+    );
+    print(address);
   }
 }
 
