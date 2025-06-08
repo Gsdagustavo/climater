@@ -1,3 +1,4 @@
+import 'package:climater/providers/theme_provider.dart';
 import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +12,35 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => WeatherProvider(),
-      child: Consumer<WeatherProvider>(
-        builder: (_, state, __) {
+      child: Consumer2<WeatherProvider, ThemeProvider>(
+        builder: (_, weatherState, themeState, __) {
           return Scaffold(
             appBar: AppBar(title: Text('Climater'), centerTitle: true),
 
+            drawer: Drawer(
+              child: Column(
+                children: [
+                  DrawerHeader(child: Icon(Icons.settings, size: 80)),
+                  ListTile(
+                    title: Text('Switch Theme Mode'),
+                    trailing: IconButton(
+                      onPressed: themeState.toggleTheme,
+                      icon: Icon(
+                        themeState.isDarkMode
+                            ? Icons.light_mode
+                            : Icons.dark_mode,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             body: Builder(
               builder: (context) {
-                final weatherData = state.weatherData;
+                final weatherData = weatherState.weatherData;
 
-                if (state.isLoading) {
+                if (weatherState.isLoading) {
                   return Center(child: CircularProgressIndicator());
                 }
 
@@ -33,10 +53,10 @@ class HomePage extends StatelessWidget {
                   );
                 }
 
-                if (state.hasError) {
+                if (weatherState.hasError) {
                   return Center(
                     child: Text(
-                      'Error: ${state.errorMessage!}',
+                      'Error: ${weatherState.errorMessage!}',
                       style: TextStyle(color: Colors.red),
                     ),
                   );
@@ -54,7 +74,7 @@ class HomePage extends StatelessWidget {
 
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
-                await state.getWeatherData();
+                await weatherState.getWeatherData();
               },
             ),
           );
@@ -79,7 +99,7 @@ class WeatherWidget extends StatelessWidget {
         Text(
           '${weatherData.temperature.toStringAsFixed(0)} °C',
           style: TextStyle(
-            color: Colors.deepPurple.shade200,
+            color: Colors.deepPurple.shade400,
             fontSize: 72,
             fontWeight: FontWeight.bold,
           ),
