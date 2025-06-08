@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   DrawerHeader(child: Icon(Icons.settings, size: 80)),
                   ListTile(
-                    title: Text('Switch Theme Mode'),
+                    title: Text('Switch theme mode'),
                     trailing: IconButton(
                       onPressed: themeState.toggleTheme,
                       icon: Icon(
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                   return Center(
                     child: Text(
                       'An unknown error occurred',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.red.shade300),
                     ),
                   );
                 }
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                   return Center(
                     child: Text(
                       'Error: ${weatherState.errorMessage!}',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.red.shade300),
                     ),
                   );
                 }
@@ -69,12 +69,6 @@ class HomePage extends StatelessWidget {
                   ),
                   child: WeatherWidget(weatherData: weatherData),
                 );
-              },
-            ),
-
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                await weatherState.getWeatherData();
               },
             ),
           );
