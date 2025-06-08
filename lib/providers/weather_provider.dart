@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocode/geocode.dart';
