@@ -1,3 +1,4 @@
+import 'package:climater/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 const String appTitle = 'Climater';
@@ -21,19 +22,6 @@ class MyApp extends StatelessWidget {
       },
 
       initialRoute: '/homePage',
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Hello World!'),
-      ),
     );
   }
 }
