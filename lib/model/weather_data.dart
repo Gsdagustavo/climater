@@ -19,13 +19,16 @@ class WeatherData {
     required this.description,
   });
 
+  /// Returns a capitalized version of the [description]
   String formatDescription() {
-    return description
-        .split(' ')
-        .map((word) {
-          if (word.isEmpty) return '';
-          return word[0].toUpperCase() + word.substring(0, word.length);
-        })
-        .join(' ');
+    var desc = '';
+
+    for (final word in description.split(' ')) {
+      desc += word[0].toUpperCase();
+      desc += word.substring(1);
+      desc += ' ';
+    }
+
+    return desc;
   }
 }
