@@ -21,9 +21,9 @@ class Assets {
   static const String images13n2x = 'assets/images/13n@2x.png';
   static const String images50d2x = 'assets/images/50d@2x.png';
   static const String images50n2x = 'assets/images/50n@2x.png';
-  static const String resultsClimaterDrawerDarkMode = 'assets/images/results/climater_drawer_dark_mode.png';
-  static const String resultsClimaterDrawerLightMode = 'assets/images/results/climater_drawer_light_mode.png';
-  static const String resultsClimaterHpDarkMode = 'assets/images/results/climater_hp_dark_mode.png';
-  static const String resultsClimaterHpLightMode = 'assets/images/results/climater_hp_light_mode.png';
+  static const String resultsClimaterDrawerDarkMode = 'assets/images/results/drawer_dark.png';
+  static const String resultsClimaterDrawerLightMode = 'assets/images/results/drawer_light.png';
+  static const String resultsClimaterHpDarkMode = 'assets/images/results/home_dark.png';
+  static const String resultsClimaterHpLightMode = 'assets/images/results/home_light.png';
 
 }

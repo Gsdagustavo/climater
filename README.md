@@ -1,8 +1,8 @@
-
-
 # 🌦️ Climater
 
-**Climater** is a modern and intuitive weather app built with Flutter. It provides current weather information based on your location, using data from the OpenWeatherMap API. The app features a clean interface, dark/light theme support, and leverages robust packages like `provider` and `shared_preferences` for state management and persistence.
+**Climater** is a modern and intuitive weather app built with Flutter. It provides current weather information based on
+your location, using data from the OpenWeatherMap API. The app features a clean interface, dark/light theme support, and
+leverages robust packages like `provider` and `shared_preferences` for state management and persistence.
 
 ## 🚀 Features
 
@@ -73,7 +73,10 @@ dependencies:
 
 ## 🖼 Screenshots
 
-*(Add screenshots here if available)*
+![Climater Home Screen (Dark Mode)](assets/screenshots/home_dark.png)
+![Climater Home Screen (Light Mode)](assets/screenshots/home_light.png)
+![Climater Drawer (Dark Mode)](assets/screenshots/drawer_dark.png)
+![Climater Home Screen (Light Mode)](assets/screenshots/drawer_light.png)
 
 ## 🔧 Getting Started
 
