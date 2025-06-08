@@ -81,7 +81,7 @@ dependencies:
 ## 🔧 Getting Started
 
 ```bash
-git clone https://github.com/your-username/climater.git
+git clone https://github.com/Gsdagustavo/climater.git
 cd climater
 flutter pub get
 ```
