@@ -43,11 +43,16 @@ class HomePage extends StatelessWidget {
               );
             }
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 50),
-              child: RefreshIndicator(
-                onRefresh: weatherState.getWeatherData,
-                child: WeatherWidget(weatherData: weatherData),
+            return RefreshIndicator(
+              onRefresh: weatherState.getWeatherData,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 50,
+                  ),
+                  child: WeatherWidget(weatherData: weatherData),
+                ),
               ),
             );
           },
