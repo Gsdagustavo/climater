@@ -56,7 +56,7 @@ class WeatherProvider with ChangeNotifier {
     _errorMessage = null;
     _isLoading = false;
 
-    final Address? address = await _getAddress();
+    final Address? address = await _getAddress(position: position);
 
     /// TODO: add proper error handling
     if (address == null) {
@@ -90,14 +90,7 @@ class WeatherProvider with ChangeNotifier {
   }
 
   /// Returns an [Address] based on the current [Position]
-  Future<Address?> _getAddress() async {
-    final position = await _getPosition();
-
-    /// TODO: add proper error handling
-    if (position == null) {
-      return null;
-    }
-
+  Future<Address?> _getAddress({required Position position}) async {
     final address = await GeoCode().reverseGeocoding(
       latitude: position.latitude,
       longitude: position.longitude,
@@ -110,7 +103,7 @@ class WeatherProvider with ChangeNotifier {
   Future<Position?> _getPosition() async {
     await Geolocator.requestPermission();
     final position = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(accuracy: LocationAccuracy.medium),
+      locationSettings: LocationSettings(),
     );
 
     return position;
