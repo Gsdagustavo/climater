@@ -12,7 +12,7 @@ class FabContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade900,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(24),
       ),
 
       padding: EdgeInsets.all(32),
