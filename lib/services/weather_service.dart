@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
-  static final String _apiKey = dotenv.env['API_KEY']!;
+  static final String _apiKey = dotenv.env['OPENWEATHER_API_KEY']!;
   static final String _exclude = 'minutely,hourly,daily,alerts';
   static final String _units = 'metric';
 
