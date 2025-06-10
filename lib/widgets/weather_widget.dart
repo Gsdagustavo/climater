@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import '../model/weather_data.dart';
 import 'fab_container.dart';
 
+/// This is the main widget that will be displayed in the [HomePage]
+///
+/// It contains the current city, the weather description, an image representing
+/// the weather, the temperature (displayed in Celsisus), and many other infos
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key, required this.weatherData});
 
@@ -72,6 +76,7 @@ class WeatherWidget extends StatelessWidget {
   }
 }
 
+/// Returns a [WeatherImage] from the given description
 class _ImageBuilder extends StatelessWidget {
   const _ImageBuilder({required this.description});
 
@@ -108,6 +113,7 @@ class _ImageBuilder extends StatelessWidget {
   }
 }
 
+/// Returns a [_Weather] enum from the given [weather description]
 _Weather _parseWeather(String description) {
   switch (description.toLowerCase()) {
     case 'clear sky':
@@ -133,6 +139,7 @@ _Weather _parseWeather(String description) {
   }
 }
 
+/// Contains all the weather situations retrieved from the [OpenWeatherMap API]
 enum _Weather {
   clearSky,
   fewClouds,

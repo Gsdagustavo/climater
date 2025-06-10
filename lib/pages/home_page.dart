@@ -6,6 +6,10 @@ import 'package:provider/provider.dart';
 
 import '../widgets/weather_widget.dart';
 
+/// This is the Home Page of the app.
+///
+/// Currently, it is the only page of the app, but in the future more pages
+/// will be added
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -63,6 +67,10 @@ class HomePage extends StatelessWidget {
   }
 }
 
+/// A Drawer designed for the Home Page
+///
+/// Contains the Switch for toggling the theme and a label that shows the
+/// current version of the app
 class _HomePageDrawer extends StatelessWidget {
   const _HomePageDrawer();
 

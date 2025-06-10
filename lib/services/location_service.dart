@@ -3,7 +3,7 @@ import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 
 abstract class LocationService {
-
+  /// Contains the [GeoCode API Key] retrieved from the [.env] file
   static String apiKey = dotenv.env['GEOCODE_API_KEY']!;
 
   /// Returns an [Address] based on the current [Position]

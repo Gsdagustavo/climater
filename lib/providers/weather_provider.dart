@@ -1,10 +1,16 @@
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/weather_service.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocode/geocode.dart';
 
 import '../model/weather_data.dart';
 
+/// This is a provider to be used in the Home Page to display the current weather
+/// situation
+///
+/// It uses the [WeatherService] and [LocationService] to fetch data from the
+/// APIs and organizes it on the [_weatherData] variable
 class WeatherProvider with ChangeNotifier {
   WeatherData? _weatherData;
 
@@ -28,6 +34,7 @@ class WeatherProvider with ChangeNotifier {
     await getWeatherData();
   }
 
+  /// Fetches the current weather data from the API
   Future<void> getWeatherData() async {
     _isLoading = true;
     notifyListeners();
@@ -73,6 +80,7 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
   WeatherData _formatWeatherData({
     required Map<String, dynamic> main,
     required Map<String, dynamic> weather,

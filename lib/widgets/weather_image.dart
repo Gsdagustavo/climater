@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// This is a basic model [Image] to represent the current weather situation.
+///
+///  It is used in the [Home Page]
 class WeatherImage extends StatelessWidget {
   const WeatherImage({super.key, required this.imagePath});
 

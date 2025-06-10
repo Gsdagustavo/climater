@@ -1,5 +1,6 @@
 import 'package:geocode/geocode.dart';
 
+/// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {
   final Address address;
   final double temperature;

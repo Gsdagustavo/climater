@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// This is a basic model [Container] to be used to display some infos in the
+/// [Home Page]
 class FabContainer extends StatelessWidget {
   const FabContainer({super.key, required this.child});
 
