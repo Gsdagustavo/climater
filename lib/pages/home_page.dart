@@ -1,3 +1,4 @@
+import 'package:climater/core/constants/version.dart';
 import 'package:climater/providers/theme_provider.dart';
 import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
@@ -70,17 +71,32 @@ class _HomePageDrawer extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (_, themeState, __) {
         return Drawer(
-          child: Column(
-            children: [
-              DrawerHeader(child: Icon(Icons.settings, size: 80)),
-              ListTile(
-                title: Text('Dark mode', style: TextStyle(fontSize: 18)),
-                trailing: Switch(
-                  value: themeState.isDarkMode,
-                  onChanged: (_) => themeState.toggleTheme(),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Column(
+              children: [
+                DrawerHeader(child: Icon(Icons.settings, size: 80)),
+                ListTile(
+                  title: Text('Dark mode', style: TextStyle(fontSize: 18)),
+                  trailing: Switch(
+                    value: themeState.isDarkMode,
+                    onChanged: (_) => themeState.toggleTheme(),
+                  ),
                 ),
-              ),
-            ],
+
+                Spacer(),
+
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: ListTile(
+                    title: Text(
+                      'Version $appVersion',
+                      style: TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
