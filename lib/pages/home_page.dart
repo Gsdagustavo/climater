@@ -65,14 +65,10 @@ class HomePage extends StatelessWidget {
                 children: [
                   DrawerHeader(child: Icon(Icons.settings, size: 80)),
                   ListTile(
-                    title: Text('Switch theme mode'),
-                    trailing: IconButton(
-                      onPressed: themeState.toggleTheme,
-                      icon: Icon(
-                        themeState.isDarkMode
-                            ? Icons.light_mode
-                            : Icons.dark_mode,
-                      ),
+                    title: Text('Dark mode', style: TextStyle(fontSize: 18)),
+                    trailing: Switch(
+                      value: themeState.isDarkMode,
+                      onChanged: (_) => themeState.toggleTheme(),
                     ),
                   ),
                 ],
