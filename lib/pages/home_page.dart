@@ -56,25 +56,34 @@ class HomePage extends StatelessWidget {
           },
         ),
 
-        drawer: Consumer<ThemeProvider>(
-          builder: (_, themeState, __) {
-            return Drawer(
-              child: Column(
-                children: [
-                  DrawerHeader(child: Icon(Icons.settings, size: 80)),
-                  ListTile(
-                    title: Text('Dark mode', style: TextStyle(fontSize: 18)),
-                    trailing: Switch(
-                      value: themeState.isDarkMode,
-                      onChanged: (_) => themeState.toggleTheme(),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+        drawer: const _HomePageDrawer(),
       ),
+    );
+  }
+}
+
+class _HomePageDrawer extends StatelessWidget {
+  const _HomePageDrawer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ThemeProvider>(
+      builder: (_, themeState, __) {
+        return Drawer(
+          child: Column(
+            children: [
+              DrawerHeader(child: Icon(Icons.settings, size: 80)),
+              ListTile(
+                title: Text('Dark mode', style: TextStyle(fontSize: 18)),
+                trailing: Switch(
+                  value: themeState.isDarkMode,
+                  onChanged: (_) => themeState.toggleTheme(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
