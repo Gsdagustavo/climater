@@ -1,10 +1,16 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 
 abstract class LocationService {
+
+  static String apiKey = dotenv.env['GEOCODE_API_KEY']!;
+
   /// Returns an [Address] based on the current [Position]
   static Future<Address?> getAddress({required Position position}) async {
-    final address = await GeoCode().reverseGeocoding(
+    final GeoCode geoCode = GeoCode(apiKey: apiKey);
+
+    final address = await geoCode.reverseGeocoding(
       latitude: position.latitude,
       longitude: position.longitude,
     );
