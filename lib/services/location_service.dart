@@ -28,7 +28,7 @@ abstract class LocationService {
     }
 
     final position = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(accuracy: LocationAccuracy.medium),
+      locationSettings: LocationSettings(accuracy: LocationAccuracy.low),
     );
 
     return position;
