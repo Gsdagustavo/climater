@@ -3,9 +3,6 @@ import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/weather_data.dart';
-import '../widgets/fab_container.dart';
-import '../widgets/weather_image.dart';
 import '../widgets/weather_widget.dart';
 
 class HomePage extends StatelessWidget {
