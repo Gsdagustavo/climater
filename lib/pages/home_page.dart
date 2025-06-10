@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
             final weatherData = weatherState.weatherData;
 
             if (weatherState.isLoading) {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator.adaptive());
             }
 
             if (weatherData == null) {
