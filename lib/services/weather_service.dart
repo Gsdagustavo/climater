@@ -8,7 +8,7 @@ class WeatherService {
   static final String _apiKey = dotenv.env['OPENWEATHER_API_KEY']!;
 
   /// Defines what to exclude from the query
-  static final String _exclude = 'minutely,hourly,daily,alerts';
+  static final String _exclude = 'minutely, hourly';
 
   /// Defines the basic unit system
   ///
@@ -24,12 +24,18 @@ class WeatherService {
     required double longitude,
   }) async {
     final uri = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&exclude=$_exclude&appid=$_apiKey&units=$_units',
+      'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$_apiKey&units=$_units',
     );
     final response = await http.get(uri);
 
+    print('Response: ${response.toString()}');
+
     if (response.statusCode == 200) {
-      return jsonDecode(response.body) as Map<String, dynamic>;
+      final result = jsonDecode(response.body) as Map<String, dynamic>;
+
+      print('Result: $result');
+
+      return result;
     } else {
       print(
         'Error while trying to fetch the weather data. Code: ${response.statusCode}',

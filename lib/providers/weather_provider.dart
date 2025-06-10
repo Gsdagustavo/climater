@@ -2,7 +2,6 @@ import 'package:climater/services/location_service.dart';
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:geocode/geocode.dart';
 
 import '../model/weather_data.dart';
 
@@ -63,20 +62,9 @@ class WeatherProvider with ChangeNotifier {
     _errorMessage = null;
     _isLoading = false;
 
-    final Address? address = await LocationService.getAddress(
-      position: position,
-    );
+    _weatherData = WeatherData.fromJson(json: data);
 
-    /// TODO: add proper error handling
-    if (address == null) {
-      return;
-    }
-
-    _weatherData = WeatherData.fromJsonAndAddress(
-      main: data['main'],
-      weather: data['weather'][0],
-      address: address,
-    );
+    print('Weather Data: ${weatherData.toString()}');
 
     notifyListeners();
   }

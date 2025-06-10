@@ -16,6 +16,7 @@ class FabContainer extends StatelessWidget {
       ),
 
       padding: EdgeInsets.all(32),
+      // width: double.infinity,
       child: Center(child: child),
     );
   }

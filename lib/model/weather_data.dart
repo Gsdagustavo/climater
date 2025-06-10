@@ -1,46 +1,56 @@
-import 'package:geocode/geocode.dart';
-
 /// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {
-  final Address address;
-  final double temperature;
+  final String city;
+  final double latitude;
+  final double longitude;
+
   final String main;
   final String description;
 
-  final double maxTemperature;
-  final double minTemperature;
+  final double temperature;
+  final double minTemp;
+  final double maxTemp;
   final double feelsLike;
+
   final int pressure;
   final int humidity;
 
   WeatherData({
-    required this.address,
-    required this.temperature,
+    required this.city,
+    required this.maxTemp,
+    required this.feelsLike,
+    required this.minTemp,
+    required this.latitude,
+    required this.longitude,
     required this.main,
     required this.description,
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.feelsLike,
+    required this.temperature,
     required this.pressure,
     required this.humidity,
   });
 
   /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
-  factory WeatherData.fromJsonAndAddress({
-    required Map<String, dynamic> main,
-    required Map<String, dynamic> weather,
-    required Address address,
-  }) {
+  factory WeatherData.fromJson({required Map<String, dynamic> json}) {
+    final Map<String, dynamic> main = json['main'];
+
     return WeatherData(
-      address: address,
-      main: weather['main'],
-      description: weather['description'],
-      temperature: main['temp'],
-      feelsLike: main['feels_like'],
-      pressure: main['pressure'],
-      humidity: main['humidity'],
-      maxTemperature: main['temp_max'],
-      minTemperature: main['temp_min'],
+      // location
+      city: json['name'],
+      latitude: json['coord']['lat'] as double,
+      longitude: json['coord']['lon'] as double,
+
+      main: json['weather'][0]['main'],
+      description: json['weather'][0]['description'],
+
+      // temperature
+      temperature: main['temp'] as double,
+      maxTemp: main['temp_max'] as double,
+      minTemp: main['temp_min'] as double,
+      feelsLike: main['feels_like'] as double,
+
+      // pressure and humidity
+      humidity: main['humidity'] as int,
+      pressure: main['pressure'] as int,
     );
   }
 
@@ -55,5 +65,10 @@ class WeatherData {
     }
 
     return desc;
+  }
+
+  @override
+  String toString() {
+    return 'WeatherData{city: $city, latitude: $latitude, longitude: $longitude, main: $main, description: $description, temperature: $temperature, minTemp: $minTemp, maxTemp: $maxTemp, feelsLike: $feelsLike, pressure: $pressure, humidity: $humidity}';
   }
 }

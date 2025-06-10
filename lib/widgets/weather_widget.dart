@@ -15,13 +15,13 @@ class WeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final address = weatherData.address;
+    final city = weatherData.city;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          address.city!,
+          city,
           style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
@@ -34,41 +34,92 @@ class WeatherWidget extends StatelessWidget {
 
         Text(
           '${weatherData.temperature.toStringAsFixed(0)} °C',
-          style: TextStyle(
-            // color: Colors.deepPurple.shade400,
-            fontSize: 72,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
         ),
 
         Padding(padding: EdgeInsets.all(32)),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          spacing: 15,
-          children: [
-            FabContainer(
-              child: Text(
-                'Min: ${weatherData.minTemperature.toStringAsFixed(1)} °C',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
+        SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            spacing: 15,
+            children: [
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.thermostat),
 
-            FabContainer(
-              child: Text(
-                'Max: ${weatherData.maxTemperature.toStringAsFixed(1)} °C',
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Min: ${weatherData.minTemp.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.thermostat),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
 
-        Padding(padding: EdgeInsetsGeometry.all(12)),
+        Padding(padding: EdgeInsets.all(12)),
 
-        FabContainer(
-          child: Text(
-            'Humidity: ${weatherData.humidity.toStringAsFixed(0)}%',
-            style: TextStyle(fontSize: 20, color: Colors.white),
+        SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              FabContainer(
+                child: Row(
+                  children: [
+                    Icon(Icons.water_drop_outlined),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Humidity: ${weatherData.humidity}%',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(padding: EdgeInsets.all(12)),
+
+              FabContainer(
+                child: Row(
+                  children: [
+                    Icon(Icons.electric_meter),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Pressure: ${weatherData.pressure} hpa',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ],
