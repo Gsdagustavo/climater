@@ -36,5 +36,6 @@ class Assets {
   static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';
   static const String widgetsMyApp = 'lib/widgets/my_app.dart';
   static const String widgetsWeatherImage = 'lib/widgets/weather_image.dart';
+  static const String widgetsWeatherWidget = 'lib/widgets/weather_widget.dart';
 
 }
