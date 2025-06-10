@@ -1,7 +1,7 @@
+import 'package:climater/services/location_service.dart';
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geocode/geocode.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../model/weather_data.dart';
 
@@ -32,7 +32,7 @@ class WeatherProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final position = await _getPosition();
+    final position = await LocationService.getPosition();
 
     /// TODO: add proper error handling
     if (position == null) {
@@ -56,7 +56,9 @@ class WeatherProvider with ChangeNotifier {
     _errorMessage = null;
     _isLoading = false;
 
-    final Address? address = await _getAddress(position: position);
+    final Address? address = await LocationService.getAddress(
+      position: position,
+    );
 
     /// TODO: add proper error handling
     if (address == null) {
@@ -87,25 +89,5 @@ class WeatherProvider with ChangeNotifier {
       maxTemperature: main['temp_max'],
       minTemperature: main['temp_min'],
     );
-  }
-
-  /// Returns an [Address] based on the current [Position]
-  Future<Address?> _getAddress({required Position position}) async {
-    final address = await GeoCode().reverseGeocoding(
-      latitude: position.latitude,
-      longitude: position.longitude,
-    );
-
-    return address;
-  }
-
-  /// Returns the current [Position]
-  Future<Position?> _getPosition() async {
-    await Geolocator.requestPermission();
-    final position = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(),
-    );
-
-    return position;
   }
 }
