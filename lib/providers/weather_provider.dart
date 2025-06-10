@@ -48,7 +48,7 @@ class WeatherProvider with ChangeNotifier {
 
     final data = await WeatherService().fetchWeatherData(
       latitude: position.latitude,
-      longitude: position.latitude,
+      longitude: position.longitude,
     );
 
     if (data == null || data.isEmpty) {
