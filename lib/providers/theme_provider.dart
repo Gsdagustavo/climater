@@ -18,14 +18,25 @@ abstract class SharedThemeKeys {
 class ThemeProvider with ChangeNotifier {
   bool isDarkMode = true;
 
-  void toggleTheme() async {
+  ThemeProvider() {
+    _init();
+  }
+
+  ThemeData get themeData => isDarkMode ? darkThemeData : lightThemeData;
+
+  Future<void> _init() async {
+    await _loadTheme();
+  }
+
+  Future<void> toggleTheme() async {
     isDarkMode = !isDarkMode;
+
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool(SharedThemeKeys.isDarkModeKey, isDarkMode);
     notifyListeners();
   }
 
-  void loadTheme() async {
+  Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
     bool? prefsDarkMode = prefs.getBool(SharedThemeKeys.isDarkModeKey);
 
@@ -33,11 +44,10 @@ class ThemeProvider with ChangeNotifier {
     /// (dark mode)
     if (prefsDarkMode == null) {
       prefs.setBool(SharedThemeKeys.isDarkModeKey, isDarkMode);
-      notifyListeners();
       return;
     }
 
-    prefs.setBool(SharedThemeKeys.isDarkModeKey, prefsDarkMode);
+    isDarkMode = prefsDarkMode;
     notifyListeners();
   }
 }
