@@ -72,30 +72,12 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = _formatWeatherData(
+    _weatherData = WeatherData.fromJsonAndAddress(
       main: data['main'],
       weather: data['weather'][0],
       address: address,
     );
-    notifyListeners();
-  }
 
-  /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
-  WeatherData _formatWeatherData({
-    required Map<String, dynamic> main,
-    required Map<String, dynamic> weather,
-    required Address address,
-  }) {
-    return WeatherData(
-      address: address,
-      main: weather['main'],
-      description: weather['description'],
-      temperature: main['temp'],
-      feelsLike: main['feels_like'],
-      pressure: main['pressure'],
-      humidity: main['humidity'],
-      maxTemperature: main['temp_max'],
-      minTemperature: main['temp_min'],
-    );
+    notifyListeners();
   }
 }

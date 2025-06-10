@@ -25,6 +25,25 @@ class WeatherData {
     required this.humidity,
   });
 
+  /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
+  factory WeatherData.fromJsonAndAddress({
+    required Map<String, dynamic> main,
+    required Map<String, dynamic> weather,
+    required Address address,
+  }) {
+    return WeatherData(
+      address: address,
+      main: weather['main'],
+      description: weather['description'],
+      temperature: main['temp'],
+      feelsLike: main['feels_like'],
+      pressure: main['pressure'],
+      humidity: main['humidity'],
+      maxTemperature: main['temp_max'],
+      minTemperature: main['temp_min'],
+    );
+  }
+
   /// Returns a capitalized version of the [description]
   String formatDescription() {
     var desc = '';
