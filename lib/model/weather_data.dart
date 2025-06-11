@@ -17,6 +17,9 @@ class WeatherData {
 
   final double rain;
 
+  final double windSpeed;
+  final int windDirection;
+
   WeatherData({
     required this.city,
     required this.maxTemp,
@@ -30,11 +33,14 @@ class WeatherData {
     required this.pressure,
     required this.humidity,
     required this.rain,
+    required this.windSpeed,
+    required this.windDirection,
   });
 
   /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
   factory WeatherData.fromJson({required Map<String, dynamic> json}) {
     final Map<String, dynamic> main = json['main'];
+    final Map<String, dynamic> wind = json['wind'];
 
     final rainData = json['rain'] as Map<String, dynamic>?;
     final rainLastHour =
@@ -60,7 +66,11 @@ class WeatherData {
       pressure: main['pressure'] as int,
 
       // rain
-      rain: rainLastHour,
+      rain: rainLastHour as double,
+
+      // wind
+      windDirection: wind['deg'] as int,
+      windSpeed: wind['speed'] as double,
     );
   }
 
