@@ -1,5 +1,6 @@
 import 'package:climater/widgets/weather_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../model/weather_data.dart';
 import 'fab_container.dart';
@@ -20,6 +21,7 @@ class WeatherWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        /// City name
         Text(
           city,
           style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold),
@@ -28,10 +30,13 @@ class WeatherWidget extends StatelessWidget {
 
         Padding(padding: EdgeInsets.all(12)),
 
+        /// Weather Description
         Text(weatherData.formatDescription(), style: TextStyle(fontSize: 24)),
 
+        /// Weather image
         _ImageBuilder(description: weatherData.description),
 
+        /// Temperature
         Text(
           '${weatherData.temperature.toStringAsFixed(0)} °C',
           style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
@@ -39,6 +44,7 @@ class WeatherWidget extends StatelessWidget {
 
         Padding(padding: EdgeInsets.all(32)),
 
+        /// Min and Max temperatures and feels like
         SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -50,7 +56,7 @@ class WeatherWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.thermostat),
+                    Icon(FontAwesomeIcons.temperatureLow),
 
                     Padding(padding: EdgeInsets.all(5)),
 
@@ -66,12 +72,28 @@ class WeatherWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(Icons.thermostat),
+                    Icon(FontAwesomeIcons.temperatureHigh),
 
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
                       'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(FontAwesomeIcons.temperatureHalf),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °C',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -83,6 +105,7 @@ class WeatherWidget extends StatelessWidget {
 
         Padding(padding: EdgeInsets.all(12)),
 
+        /// Humidity and Pressure
         SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -108,7 +131,7 @@ class WeatherWidget extends StatelessWidget {
               FabContainer(
                 child: Row(
                   children: [
-                    Icon(Icons.electric_meter),
+                    Icon(FontAwesomeIcons.gaugeHigh),
 
                     Padding(padding: EdgeInsets.all(5)),
 
