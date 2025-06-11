@@ -4,6 +4,8 @@ import 'package:climater/pages/home_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../util/temperature_util.dart';
+
 class WeatherService {
   /// Contains the [OpenWeatherMap API Key] retrieved from the [.env] file
   static final String _apiKey = dotenv.env['OPENWEATHER_API_KEY']!;

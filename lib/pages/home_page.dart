@@ -4,6 +4,7 @@ import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../util/temperature_util.dart';
 import '../widgets/weather_widget.dart';
 
 /// This is the Home Page of the app.
@@ -86,7 +87,10 @@ class _HomePageDrawer extends StatelessWidget {
                 DrawerHeader(child: Icon(Icons.settings, size: 80)),
 
                 ListTile(
-                  title: Text('Dark mode', style: TextStyle(fontSize: 18)),
+                  title: Text(
+                    'Dark mode',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                   trailing: Switch(
                     value: themeState.isDarkMode,
                     onChanged: (_) => themeState.toggleTheme(),
@@ -96,7 +100,7 @@ class _HomePageDrawer extends StatelessWidget {
                 ListTile(
                   title: Text(
                     'Temperature unit',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   trailing: TemperaturesDropDownButton(),
                 ),
@@ -140,25 +144,18 @@ class TemperaturesDropDownButton extends StatelessWidget {
 
           items: [
             for (final value in UnitSystem.values)
-              DropdownMenuItem(value: value, child: Text(unitToString(value))),
+              DropdownMenuItem(
+                value: value,
+                child: Text(TemperatureUtil.unitToString(value)),
+              ),
           ],
 
           onChanged: (value) {
             state.toggleTemperatureUnit();
+            Navigator.of(context).pop();
           },
         );
       },
     );
-  }
-}
-
-enum UnitSystem { metric, imperial }
-
-String unitToString(UnitSystem unit) {
-  switch (unit) {
-    case UnitSystem.metric:
-      return 'Celsius';
-    case UnitSystem.imperial:
-      return 'Fahrenheit';
   }
 }

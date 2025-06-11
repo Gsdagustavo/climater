@@ -1,6 +1,9 @@
+import 'package:climater/providers/weather_provider.dart';
+import 'package:climater/util/temperature_util.dart';
 import 'package:climater/widgets/weather_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../model/weather_data.dart';
 import 'fab_container.dart';
@@ -37,9 +40,13 @@ class WeatherWidget extends StatelessWidget {
         _ImageBuilder(description: weatherData.description),
 
         /// Temperature
-        Text(
-          '${weatherData.temperature.toStringAsFixed(0)} °C',
-          style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+        Consumer<WeatherProvider>(
+          builder: (_, state, __) {
+            return Text(
+              '${weatherData.temperature.toStringAsFixed(0)} °${TemperatureUtil.getTemperatureInitial(state.unitSystem)}',
+              style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+            );
+          },
         ),
 
         Padding(padding: EdgeInsets.all(32)),
@@ -57,6 +64,13 @@ class _FullWeatherInfos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateUnitSystem =
+        Provider.of<WeatherProvider>(context, listen: false).unitSystem;
+
+    final temperatureInitial = TemperatureUtil.getTemperatureInitial(
+      stateUnitSystem,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -76,7 +90,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Min: ${weatherData.minTemp.toStringAsFixed(0)} °C',
+                      'Min: ${weatherData.minTemp.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -92,7 +106,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °C',
+                      'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -108,7 +122,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °C',
+                      'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
