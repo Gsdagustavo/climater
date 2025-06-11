@@ -49,28 +49,28 @@ class WeatherData {
     return WeatherData(
       // location
       city: json['name'],
-      latitude: json['coord']['lat'] as double,
-      longitude: json['coord']['lon'] as double,
+      latitude: (json['coord']['lat'] as num).toDouble(),
+      longitude: (json['coord']['lon'] as num).toDouble(),
 
       main: json['weather'][0]['main'],
       description: json['weather'][0]['description'],
 
       // temperature
-      temperature: main['temp'] as double,
-      maxTemp: main['temp_max'] as double,
-      minTemp: main['temp_min'] as double,
-      feelsLike: main['feels_like'] as double,
+      temperature: (main['temp'] as num).toDouble(),
+      maxTemp: (main['temp_max'] as num).toDouble(),
+      minTemp: (main['temp_min'] as num).toDouble(),
+      feelsLike: (main['feels_like'] as num).toDouble(),
 
       // pressure and humidity
       humidity: main['humidity'] as int,
       pressure: main['pressure'] as int,
 
       // rain
-      rain: rainLastHour as double,
+      rain: (rainLastHour as num).toDouble(),
 
       // wind
       windDirection: wind['deg'] as int,
-      windSpeed: wind['speed'] as double,
+      windSpeed: (wind['speed'] as num).toDouble(),
     );
   }
 
