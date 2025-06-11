@@ -1,3 +1,4 @@
+import 'package:climater/pages/home_page.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import '../model/weather_data.dart';
 /// APIs and organizes it on the [_weatherData] variable
 class WeatherProvider with ChangeNotifier {
   WeatherData? _weatherData;
+
+  UnitSystem unitSystem = UnitSystem.metric;
 
   bool _isLoading = false;
   bool _hasError = false;
@@ -45,9 +48,12 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
+    print('Unit system: $unitSystem');
+
     final data = await WeatherService().fetchWeatherData(
       latitude: position.latitude,
       longitude: position.longitude,
+      unit: unitSystem,
     );
 
     if (data == null || data.isEmpty) {
@@ -66,6 +72,16 @@ class WeatherProvider with ChangeNotifier {
 
     print('Weather Data: ${weatherData.toString()}');
 
+    notifyListeners();
+  }
+
+  Future<void> toggleTemperatureUnit() async {
+    unitSystem =
+        unitSystem == UnitSystem.metric
+            ? UnitSystem.imperial
+            : UnitSystem.metric;
+
+    await getWeatherData();
     notifyListeners();
   }
 }

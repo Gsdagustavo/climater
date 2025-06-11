@@ -84,12 +84,21 @@ class _HomePageDrawer extends StatelessWidget {
             child: Column(
               children: [
                 DrawerHeader(child: Icon(Icons.settings, size: 80)),
+
                 ListTile(
                   title: Text('Dark mode', style: TextStyle(fontSize: 18)),
                   trailing: Switch(
                     value: themeState.isDarkMode,
                     onChanged: (_) => themeState.toggleTheme(),
                   ),
+                ),
+
+                ListTile(
+                  title: Text(
+                    'Temperature unit',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  trailing: TemperaturesDropDownButton(),
                 ),
 
                 Spacer(),
@@ -112,5 +121,44 @@ class _HomePageDrawer extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class TemperaturesDropDownButton extends StatelessWidget {
+  const TemperaturesDropDownButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<WeatherProvider>(
+      builder: (_, state, __) {
+        return DropdownButton<UnitSystem>(
+          value: state.unitSystem,
+          icon: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Icon(Icons.arrow_downward, size: 24),
+          ),
+
+          items: [
+            for (final value in UnitSystem.values)
+              DropdownMenuItem(value: value, child: Text(unitToString(value))),
+          ],
+
+          onChanged: (value) {
+            state.toggleTemperatureUnit();
+          },
+        );
+      },
+    );
+  }
+}
+
+enum UnitSystem { metric, imperial }
+
+String unitToString(UnitSystem unit) {
+  switch (unit) {
+    case UnitSystem.metric:
+      return 'Celsius';
+    case UnitSystem.imperial:
+      return 'Fahrenheit';
   }
 }
