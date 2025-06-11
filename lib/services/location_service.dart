@@ -1,32 +1,37 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 
 abstract class LocationService {
   /// Returns the current [Position]
-  static Future<Position?> getPosition() async {
+  static Future<LocationData?> getPosition() async {
     print('Get position called');
     final startTime = DateTime.now();
 
-    var permission = await Geolocator.checkPermission();
+    Location location = Location();
 
-    if (permission == LocationPermission.deniedForever) {
-      return null;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return null;
+      }
     }
 
-    permission = await Geolocator.requestPermission();
-
-    if (permission == LocationPermission.deniedForever ||
-        permission == LocationPermission.denied) {
-      return null;
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return null;
+      }
     }
-
-    final position = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(accuracy: LocationAccuracy.low),
-    );
 
     final endTime = DateTime.now();
     final deltaTime = endTime.difference(startTime);
     print('Getting position took ${deltaTime.inMilliseconds} ms');
 
-    return position;
+    return await location.getLocation();
   }
 }
