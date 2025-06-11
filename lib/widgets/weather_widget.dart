@@ -51,7 +51,7 @@ class WeatherWidget extends StatelessWidget {
 }
 
 class _FullWeatherInfos extends StatelessWidget {
-  const _FullWeatherInfos({super.key, required this.weatherData});
+  const _FullWeatherInfos({required this.weatherData});
 
   final WeatherData weatherData;
 
@@ -61,7 +61,7 @@ class _FullWeatherInfos extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// Temperature infos
-        FabWeatherInfo(
+        _FabWeatherInfo(
           label: 'Temperature',
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,7 +121,7 @@ class _FullWeatherInfos extends StatelessWidget {
         Padding(padding: EdgeInsets.all(12)),
 
         /// Wind infos
-        FabWeatherInfo(
+        _FabWeatherInfo(
           label: 'Wind',
           child: Row(
             children: [
@@ -163,7 +163,7 @@ class _FullWeatherInfos extends StatelessWidget {
         Padding(padding: EdgeInsets.all(12)),
 
         /// Rain infos
-        FabWeatherInfo(
+        _FabWeatherInfo(
           label: 'Rain',
           child: FabContainer(
             child: Row(
@@ -182,7 +182,7 @@ class _FullWeatherInfos extends StatelessWidget {
         Padding(padding: EdgeInsets.all(12)),
 
         /// Other infos (humidity and pressure)
-        FabWeatherInfo(
+        _FabWeatherInfo(
           label: 'Other infos',
           child: Row(
             children: [
@@ -225,8 +225,8 @@ class _FullWeatherInfos extends StatelessWidget {
   }
 }
 
-class FabWeatherInfo extends StatelessWidget {
-  const FabWeatherInfo({super.key, required this.label, required this.child});
+class _FabWeatherInfo extends StatelessWidget {
+  const _FabWeatherInfo({required this.label, required this.child});
 
   final String label;
   final Widget child;
