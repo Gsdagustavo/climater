@@ -142,11 +142,15 @@ class _TemperaturesDropDownButton extends StatelessWidget {
             child: Icon(Icons.arrow_downward, size: 24),
           ),
 
+          underline: Container(color: Colors.transparent),
+
           items: [
             for (final value in UnitSystem.values)
               DropdownMenuItem(
                 value: value,
-                child: Text(TemperatureUtil.unitToString(value)),
+                child: Text(
+                  '° ${TemperatureUtil.getTemperatureInitial(value)}',
+                ),
               ),
           ],
 
