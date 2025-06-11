@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
+                    horizontal: 16,
                     vertical: 50,
                   ),
                   child: WeatherWidget(weatherData: weatherData),
@@ -99,7 +99,10 @@ class _HomePageDrawer extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                       'Version $appVersion',
-                      style: TextStyle(fontSize: 16, color: Theme.of(context).hintColor),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).hintColor,
+                      ),
                     ),
                   ),
                 ),
