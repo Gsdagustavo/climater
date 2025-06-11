@@ -44,171 +44,213 @@ class WeatherWidget extends StatelessWidget {
 
         Padding(padding: EdgeInsets.all(32)),
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Text(
-                'Temperature',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        _FullWeatherInfos(weatherData: weatherData),
+      ],
+    );
+  }
+}
+
+class _FullWeatherInfos extends StatelessWidget {
+  const _FullWeatherInfos({super.key, required this.weatherData});
+
+  final WeatherData weatherData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// Temperature infos
+        FabWeatherInfo(
+          label: 'Temperature',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            spacing: 15,
+            children: [
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(FontAwesomeIcons.temperatureLow),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Min: ${weatherData.minTemp.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            Padding(padding: EdgeInsets.all(8)),
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(FontAwesomeIcons.temperatureHigh),
 
-            /// Min and Max temperatures and feels like
-            SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                spacing: 15,
-                children: [
-                  FabContainer(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(FontAwesomeIcons.temperatureLow),
+                    Padding(padding: EdgeInsets.all(5)),
 
-                        Padding(padding: EdgeInsets.all(5)),
-
-                        Text(
-                          'Min: ${weatherData.minTemp.toStringAsFixed(0)} °C',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      ],
+                    Text(
+                      'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
-                  ),
-
-                  FabContainer(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(FontAwesomeIcons.temperatureHigh),
-
-                        Padding(padding: EdgeInsets.all(5)),
-
-                        Text(
-                          'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °C',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  FabContainer(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(FontAwesomeIcons.temperatureHalf),
-
-                        Padding(padding: EdgeInsets.all(5)),
-
-                        Text(
-                          'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °C',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              FabContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(FontAwesomeIcons.temperatureHalf),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °C',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
 
         Padding(padding: EdgeInsets.all(12)),
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Text(
-                'Rain',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-            ),
-
-            Padding(padding: EdgeInsets.all(8)),
-
-            /// Rain infos
-            SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: FabContainer(
+        /// Wind infos
+        FabWeatherInfo(
+          label: 'Wind',
+          child: Row(
+            children: [
+              FabContainer(
                 child: Row(
                   children: [
-                    Icon(Icons.cloudy_snowing),
+                    Icon(FontAwesomeIcons.compass),
+
                     Padding(padding: EdgeInsets.all(5)),
+
                     Text(
-                      'Precipitation: ${weatherData.rain} mm/h',
+                      'Wind direction: ${weatherData.windDirection} °',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+
+              Padding(padding: EdgeInsets.all(12)),
+
+              FabContainer(
+                child: Row(
+                  children: [
+                    Icon(FontAwesomeIcons.wind),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Wind speed: ${weatherData.windSpeed} m/s',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
 
         Padding(padding: EdgeInsets.all(12)),
 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Text(
-                'Other infos',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+        /// Rain infos
+        FabWeatherInfo(
+          label: 'Rain',
+          child: FabContainer(
+            child: Row(
+              children: [
+                Icon(Icons.cloudy_snowing),
+                Padding(padding: EdgeInsets.all(5)),
+                Text(
+                  'Precipitation: ${weatherData.rain} mm/h',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ],
             ),
+          ),
+        ),
 
-            Padding(padding: EdgeInsets.all(8)),
+        Padding(padding: EdgeInsets.all(12)),
 
-            /// Humidity and Pressure
-            SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  FabContainer(
-                    child: Row(
-                      children: [
-                        Icon(Icons.water_drop_outlined),
+        /// Other infos (humidity and pressure)
+        FabWeatherInfo(
+          label: 'Other infos',
+          child: Row(
+            children: [
+              FabContainer(
+                child: Row(
+                  children: [
+                    Icon(Icons.water_drop_outlined),
 
-                        Padding(padding: EdgeInsets.all(5)),
+                    Padding(padding: EdgeInsets.all(5)),
 
-                        Text(
-                          'Humidity: ${weatherData.humidity}%',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ],
+                    Text(
+                      'Humidity: ${weatherData.humidity}%',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
-                  ),
-
-                  Padding(padding: EdgeInsets.all(12)),
-
-                  FabContainer(
-                    child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.gaugeHigh),
-
-                        Padding(padding: EdgeInsets.all(5)),
-
-                        Text(
-                          'Pressure: ${weatherData.pressure} hpa',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              Padding(padding: EdgeInsets.all(12)),
+
+              FabContainer(
+                child: Row(
+                  children: [
+                    Icon(FontAwesomeIcons.gaugeHigh),
+
+                    Padding(padding: EdgeInsets.all(5)),
+
+                    Text(
+                      'Pressure: ${weatherData.pressure} hpa',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FabWeatherInfo extends StatelessWidget {
+  const FabWeatherInfo({super.key, required this.label, required this.child});
+
+  final String label;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+        ),
+
+        Padding(padding: EdgeInsets.all(8)),
+
+        /// Rain infos
+        SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          child: child,
         ),
       ],
     );
