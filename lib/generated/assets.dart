@@ -33,6 +33,7 @@ class Assets {
   static const String screenshotsHomeDark = 'assets/screenshots/home_dark.png';
   static const String screenshotsHomeLight = 'assets/screenshots/home_light.png';
   static const String servicesLocationService = 'lib/services/location_service.dart';
+  static const String servicesThemeService = 'lib/services/theme_service.dart';
   static const String servicesWeatherService = 'lib/services/weather_service.dart';
   static const String utilTemperatureUtil = 'lib/util/temperature_util.dart';
   static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';
