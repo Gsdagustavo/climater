@@ -102,7 +102,7 @@ class _HomePageDrawer extends StatelessWidget {
                     'Temperature unit',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  trailing: TemperaturesDropDownButton(),
+                  trailing: _TemperaturesDropDownButton(),
                 ),
 
                 Spacer(),
@@ -128,8 +128,8 @@ class _HomePageDrawer extends StatelessWidget {
   }
 }
 
-class TemperaturesDropDownButton extends StatelessWidget {
-  const TemperaturesDropDownButton({super.key});
+class _TemperaturesDropDownButton extends StatelessWidget {
+  const _TemperaturesDropDownButton();
 
   @override
   Widget build(BuildContext context) {
