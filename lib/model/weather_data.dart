@@ -1,46 +1,68 @@
+import 'package:flutter/material.dart';
+
 /// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {
-  final String city;
-  final double latitude;
-  final double longitude;
+  final String _city;
+  final double _latitude;
+  final double _longitude;
 
-  final String main;
-  final String description;
+  final String _main;
+  final String _description;
 
-  final double temperature;
-  final double minTemp;
-  final double maxTemp;
-  final double feelsLike;
+  final double _temperature;
+  final double _maxTemp;
+  final double _minTemp;
+  final double _feelsLike;
 
-  final int pressure;
-  final int humidity;
+  final int _humidity;
+  final int _pressure;
 
-  final double rain;
+  final double _rain;
 
-  final double windSpeed;
-  final int windDirection;
+  final int _windDirection;
+  final double _windSpeed;
 
   WeatherData({
-    required this.city,
-    required this.maxTemp,
-    required this.feelsLike,
-    required this.minTemp,
-    required this.latitude,
-    required this.longitude,
-    required this.main,
-    required this.description,
-    required this.temperature,
-    required this.pressure,
-    required this.humidity,
-    required this.rain,
-    required this.windSpeed,
-    required this.windDirection,
-  });
+    required String city,
+    required double latitude,
+    required double longitude,
+    required double temperature,
+    required double maxTemp,
+    required double minTemp,
+    required double feelsLike,
+    required String main,
+    required String description,
+    required int pressure,
+    required int humidity,
+    required double rain,
+    required double windSpeed,
+    required int windDirection,
+  }) : _city = city,
+       _latitude = latitude,
+       _longitude = longitude,
+       _main = main,
+       _description = description,
+       _temperature = temperature,
+       _minTemp = minTemp,
+       _maxTemp = maxTemp,
+       _feelsLike = feelsLike,
+       _pressure = pressure,
+       _humidity = humidity,
+       _rain = rain,
+       _windSpeed = windSpeed,
+       _windDirection = windDirection;
 
   /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
   factory WeatherData.fromJson({required Map<String, dynamic> json}) {
+    final Map<String, dynamic> coord = json['coord'];
     final Map<String, dynamic> main = json['main'];
+    final Map<String, dynamic> weather = json['weather'][0];
     final Map<String, dynamic> wind = json['wind'];
+
+    debugPrint('coords: $coord \n\n\n');
+    debugPrint('main: $main \n\n\n');
+    debugPrint('weather: $weather \n\n\n');
+    debugPrint('wind: $wind \n\n\n');
 
     final rainData = json['rain'] as Map<String, dynamic>?;
     final rainLastHour =
@@ -49,11 +71,11 @@ class WeatherData {
     return WeatherData(
       // location
       city: json['name'],
-      latitude: (json['coord']['lat'] as num).toDouble(),
-      longitude: (json['coord']['lon'] as num).toDouble(),
+      latitude: (coord['lat'] as num).toDouble(),
+      longitude: (coord['lon'] as num).toDouble(),
 
-      main: json['weather'][0]['main'],
-      description: json['weather'][0]['description'],
+      main: weather['main'],
+      description: weather['description'],
 
       // temperature
       temperature: (main['temp'] as num).toDouble(),
@@ -62,14 +84,14 @@ class WeatherData {
       feelsLike: (main['feels_like'] as num).toDouble(),
 
       // pressure and humidity
-      humidity: main['humidity'] as int,
-      pressure: main['pressure'] as int,
+      humidity: (main['humidity'] as num).toInt(),
+      pressure: (main['pressure'] as num).toInt(),
 
       // rain
       rain: (rainLastHour as num).toDouble(),
 
       // wind
-      windDirection: wind['deg'] as int,
+      windDirection: (wind['deg'] as num).toInt(),
       windSpeed: (wind['speed'] as num).toDouble(),
     );
   }
@@ -78,7 +100,7 @@ class WeatherData {
   String formatDescription() {
     var desc = '';
 
-    for (final word in description.split(' ')) {
+    for (final word in _description.split(' ')) {
       desc += word[0].toUpperCase();
       desc += word.substring(1);
       desc += ' ';
@@ -87,8 +109,31 @@ class WeatherData {
     return desc;
   }
 
-  @override
-  String toString() {
-    return 'WeatherData{city: $city, latitude: $latitude, longitude: $longitude, main: $main, description: $description, temperature: $temperature, minTemp: $minTemp, maxTemp: $maxTemp, feelsLike: $feelsLike, pressure: $pressure, humidity: $humidity}';
-  }
+  int get windDirection => _windDirection;
+
+  double get windSpeed => _windSpeed;
+
+  double get rain => _rain;
+
+  int get humidity => _humidity;
+
+  int get pressure => _pressure;
+
+  double get feelsLike => _feelsLike;
+
+  double get maxTemp => _maxTemp;
+
+  double get minTemp => _minTemp;
+
+  double get temperature => _temperature;
+
+  String get description => _description;
+
+  String get main => _main;
+
+  double get longitude => _longitude;
+
+  double get latitude => _latitude;
+
+  String get city => _city;
 }
