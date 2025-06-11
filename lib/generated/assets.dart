@@ -4,6 +4,7 @@ class Assets {
 
   static const String climater = '.env';
   static const String constantsVersion = 'lib/core/constants/version.dart';
+  static const String databaseDatabase = 'lib/database/database.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
   static const String images01d2x = 'assets/images/01d@2x.png';
   static const String images01n2x = 'assets/images/01n@2x.png';
