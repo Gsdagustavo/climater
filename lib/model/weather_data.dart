@@ -15,6 +15,8 @@ class WeatherData {
   final int pressure;
   final int humidity;
 
+  final double rain;
+
   WeatherData({
     required this.city,
     required this.maxTemp,
@@ -27,11 +29,16 @@ class WeatherData {
     required this.temperature,
     required this.pressure,
     required this.humidity,
+    required this.rain,
   });
 
   /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
   factory WeatherData.fromJson({required Map<String, dynamic> json}) {
     final Map<String, dynamic> main = json['main'];
+
+    final rainData = json['rain'] as Map<String, dynamic>?;
+    final rainLastHour =
+        rainData != null && rainData.containsKey('1h') ? rainData['1h'] : 0.0;
 
     return WeatherData(
       // location
@@ -51,6 +58,9 @@ class WeatherData {
       // pressure and humidity
       humidity: main['humidity'] as int,
       pressure: main['pressure'] as int,
+
+      // rain
+      rain: rainLastHour,
     );
   }
 

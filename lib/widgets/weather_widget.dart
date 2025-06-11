@@ -126,6 +126,41 @@ class WeatherWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 12),
               child: Text(
+                'Rain',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            Padding(padding: EdgeInsets.all(8)),
+
+            /// Rain infos
+            SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: FabContainer(
+                child: Row(
+                  children: [
+                    Icon(Icons.cloudy_snowing),
+                    Padding(padding: EdgeInsets.all(5)),
+                    Text(
+                      'Precipitation: ${weatherData.rain} mm/h',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        Padding(padding: EdgeInsets.all(12)),
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: Text(
                 'Other infos',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
