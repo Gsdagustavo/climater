@@ -91,6 +91,30 @@ class WeatherData {
     );
   }
 
+  factory WeatherData.fromCachedJson(Map<String, dynamic> json) {
+    return WeatherData(
+      city: json['city'],
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
+
+      main: json['main'],
+      description: json['description'],
+
+      temperature: (json['temperature'] as num).toDouble(),
+      maxTemp: (json['maxTemp'] as num).toDouble(),
+      minTemp: (json['minTemp'] as num).toDouble(),
+      feelsLike: (json['feelsLike'] as num).toDouble(),
+
+      humidity: json['humidity'],
+      pressure: json['pressure'],
+
+      rain: (json['rain'] as num).toDouble(),
+
+      windDirection: (json['windDirection'] as num).toInt(),
+      windSpeed: (json['windSpeed'] as num).toDouble(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'city': _city,

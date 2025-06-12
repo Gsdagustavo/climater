@@ -1,6 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../model/weather_data.dart';
+
 class DBConnection {
   static const int version = 1;
   static const String dbName = 'weather.db';
@@ -57,27 +59,11 @@ class WeatherTable {
 }
 
 class WeatherController {
-  Future<void> insert() async {
+  Future<void> insert({required WeatherData weatherData}) async {
     final startTime = DateTime.now();
     final db = await DBConnection().getDatabase();
 
-    // mock json for testing
-    final Map<String, dynamic> json = {
-      'city': 'San Francisco',
-      'latitude': 37.7749,
-      'longitude': -122.4194,
-      'main': 'Clouds',
-      'description': 'broken clouds',
-      'temperature': 18.5,
-      'maxTemp': 20.0,
-      'minTemp': 16.2,
-      'feelsLike': 18.0,
-      'humidity': 72,
-      'pressure': 1012,
-      'rain': 0.0,
-      'windDirection': 240,
-      'windSpeed': 5.4,
-    };
+    final json = weatherData.toJson();
 
     // deletes the last weather data in the table
     await db.delete(WeatherTable.tableName);
@@ -91,7 +77,7 @@ class WeatherController {
     print('Insert took ${deltaTime.inMilliseconds} ms');
   }
 
-  Future<Map<String, dynamic>> select() async {
+  Future<Map<String, dynamic>?> select() async {
     final startTime = DateTime.now();
 
     final db = await DBConnection().getDatabase();
@@ -101,6 +87,12 @@ class WeatherController {
     final deltaTime = endTime.difference(startTime);
 
     print('Select took ${deltaTime.inMilliseconds} ms');
+
+    print('len: ${result.length}');
+
+    if (result.isEmpty) {
+      return null;
+    }
 
     // since the table will have only 1 row always, it is safe to return the
     // first index of the list

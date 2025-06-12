@@ -1,3 +1,4 @@
+import 'package:climater/database/database.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/unit_service.dart';
 import 'package:climater/services/weather_service.dart';
@@ -13,6 +14,8 @@ import '../util/temperature_util.dart';
 /// It uses the [WeatherService] and [LocationService] to fetch data from the
 /// APIs and organizes it on the [_weatherData] variable
 class WeatherProvider with ChangeNotifier {
+  final WeatherController _weatherController = WeatherController();
+
   WeatherData? _weatherData;
 
   UnitSystem unitSystem = UnitSystem.metric;
@@ -35,13 +38,16 @@ class WeatherProvider with ChangeNotifier {
 
   _init() async {
     await loadTemperatureUnit();
+    await getCachedWeatherData();
     await getWeatherData();
   }
 
   /// Fetches the current weather data from the API
   Future<void> getWeatherData() async {
-    _isLoading = true;
-    notifyListeners();
+    if (_weatherData == null) {
+      _isLoading = true;
+      notifyListeners();
+    }
 
     final position = await LocationService.getPosition();
 
@@ -64,12 +70,29 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
+    _weatherData = WeatherData.fromJson(json: data);
+    await _weatherController.insert(weatherData: _weatherData!);
+
     _hasError = false;
     _errorMessage = null;
     _isLoading = false;
 
-    _weatherData = WeatherData.fromJson(json: data);
+    notifyListeners();
+  }
 
+  Future<void> getCachedWeatherData() async {
+    _isLoading = true;
+    notifyListeners();
+
+    final result = await _weatherController.select();
+
+    if (result == null) {
+      return;
+    }
+
+    _weatherData = WeatherData.fromCachedJson(result);
+
+    _isLoading = false;
     notifyListeners();
   }
 
