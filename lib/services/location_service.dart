@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 
 abstract class LocationService {
   /// Returns the current [Position]
   static Future<LocationData?> getPosition() async {
-    print('Get position called');
+    debugPrint('Get position called');
     final startTime = DateTime.now();
 
     Location location = Location();
@@ -30,7 +31,7 @@ abstract class LocationService {
 
     final endTime = DateTime.now();
     final deltaTime = endTime.difference(startTime);
-    print('Getting position took ${deltaTime.inMilliseconds} ms');
+    debugPrint('Getting position took ${deltaTime.inMilliseconds} ms');
 
     return await location.getLocation();
   }

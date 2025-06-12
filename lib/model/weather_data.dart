@@ -54,10 +54,11 @@ class WeatherData {
     final Map<String, dynamic> weather = json['weather'][0];
     final Map<String, dynamic> wind = json['wind'];
 
-    debugPrint('coords: $coord \n\n\n');
-    debugPrint('main: $main \n\n\n');
-    debugPrint('weather: $weather \n\n\n');
-    debugPrint('wind: $wind \n\n\n');
+    debugPrint('WeatherData from json::\n');
+    debugPrint('coords: $coord');
+    debugPrint('main: $main');
+    debugPrint('weather: $weather');
+    debugPrint('wind: $wind');
 
     final rainData = json['rain'] as Map<String, dynamic>?;
     final rainLastHour =

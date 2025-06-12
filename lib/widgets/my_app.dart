@@ -23,8 +23,6 @@ class MyApp extends StatelessWidget {
       create: (_) => ThemeProvider(),
       child: Consumer<ThemeProvider>(
         builder: (_, state, __) {
-          print('theme data: ${state.themeData.brightness}');
-
           return MaterialApp(
             title: appTitle,
             debugShowCheckedModeBanner: showDebugBanner,

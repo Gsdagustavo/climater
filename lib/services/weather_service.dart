@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:climater/pages/home_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,18 +33,19 @@ class WeatherService {
 
     final response = await http.get(uri);
 
-    print('Response: ${response.toString()}');
+    debugPrint('Response: ${response.toString()}');
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      print('Result: $result');
+      debugPrint('Result: $result');
 
       return result;
     } else {
-      print(
+      debugPrint(
         'Error while trying to fetch the weather data. Code: ${response.statusCode}',
       );
+
       return null;
     }
   }

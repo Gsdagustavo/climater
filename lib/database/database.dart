@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -74,7 +75,7 @@ class WeatherController {
     final endTime = DateTime.now();
     final deltaTime = endTime.difference(startTime);
 
-    print('Insert took ${deltaTime.inMilliseconds} ms');
+    debugPrint('Insert took ${deltaTime.inMilliseconds} ms');
   }
 
   Future<Map<String, dynamic>?> select() async {
@@ -86,9 +87,8 @@ class WeatherController {
     final endTime = DateTime.now();
     final deltaTime = endTime.difference(startTime);
 
-    print('Select took ${deltaTime.inMilliseconds} ms');
-
-    print('len: ${result.length}');
+    debugPrint('Select took ${deltaTime.inMilliseconds} ms');
+    debugPrint('DB Select result length: ${result.length}');
 
     if (result.isEmpty) {
       return null;
