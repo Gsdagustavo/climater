@@ -1,11 +1,14 @@
+import 'package:climater/database/database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'widgets/my_app.dart';
 
 /// This is the entry point of the application
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DBConnection().getDatabase();
+  await WeatherController().insert();
+  await WeatherController().select();
+
   /// Loads the environment variables (API Keys) from the .env file
-  await dotenv.load();
-  runApp(const MyApp());
+  // await dotenv.load();
+  // runApp(const MyApp());
 }
