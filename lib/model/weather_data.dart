@@ -5,20 +5,15 @@ class WeatherData {
   final String _city;
   final double _latitude;
   final double _longitude;
-
   final String _main;
   final String _description;
-
   final double _temperature;
   final double _maxTemp;
   final double _minTemp;
   final double _feelsLike;
-
   final int _humidity;
   final int _pressure;
-
   final double _rain;
-
   final int _windDirection;
   final double _windSpeed;
 
@@ -94,6 +89,25 @@ class WeatherData {
       windDirection: (wind['deg'] as num).toInt(),
       windSpeed: (wind['speed'] as num).toDouble(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'city': _city,
+      'latitude': _latitude,
+      'longitude': _longitude,
+      'main': _main,
+      'description': _description,
+      'temperature': _temperature,
+      'minTemp': _minTemp,
+      'maxTemp': _maxTemp,
+      'feelsLike': _feelsLike,
+      'pressure': _pressure,
+      'humidity': _humidity,
+      'rain': _rain,
+      'windSpeed': _windSpeed,
+      'windDirection': _windDirection,
+    };
   }
 
   /// Returns a capitalized version of the [description]
