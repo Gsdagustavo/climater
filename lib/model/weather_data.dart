@@ -1,6 +1,8 @@
 import 'package:climater/util/temperature_util.dart';
 import 'package:flutter/material.dart';
 
+import '../util/temperature_converter.dart';
+
 /// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {
   final String _city;
