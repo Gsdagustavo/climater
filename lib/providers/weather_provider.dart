@@ -4,6 +4,7 @@ import 'package:climater/services/unit_service.dart';
 import 'package:climater/services/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/weather_data.dart';
 import '../util/temperature_util.dart';
@@ -36,6 +37,7 @@ class WeatherProvider with ChangeNotifier {
     _init();
   }
 
+  /// Initilizes the state by loading all data
   _init() async {
     await loadTemperatureUnit();
     await getCachedWeatherData();
@@ -80,6 +82,7 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets the [WeatherData] stored in the database
   Future<void> getCachedWeatherData() async {
     _isLoading = true;
     notifyListeners();
@@ -99,6 +102,7 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Toggles the current temperature unit and saves it to [SharedPreferences]
   Future<void> toggleTemperatureUnit() async {
     weatherData!.toggleTemperatureUnit(fromUnit: unitSystem);
     unitSystem =
@@ -111,6 +115,8 @@ class WeatherProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets the current temperature unit stored in [SharedPreferences]
+  /// from the [UnitService] class
   Future<void> loadTemperatureUnit() async {
     final stringUnit = await UnitService().loadUnit();
 
