@@ -33,6 +33,7 @@ class Assets {
   static const String screenshotsDrawerLight = 'assets/screenshots/drawer_light.png';
   static const String screenshotsHomeDark = 'assets/screenshots/home_dark.png';
   static const String screenshotsHomeLight = 'assets/screenshots/home_light.png';
+  static const String servicesLastUpdateService = 'lib/services/last_update_service.dart';
   static const String servicesLocationService = 'lib/services/location_service.dart';
   static const String servicesThemeService = 'lib/services/theme_service.dart';
   static const String servicesUnitService = 'lib/services/unit_service.dart';

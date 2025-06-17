@@ -1,7 +1,9 @@
 import 'package:climater/database/database.dart';
+import 'package:climater/services/last_update_service.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/unit_service.dart';
 import 'package:climater/services/weather_service.dart';
+import 'package:climater/util/temperature_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,8 +41,8 @@ class WeatherProvider with ChangeNotifier {
 
   /// Initilizes the state by loading all data
   _init() async {
-    await loadTemperatureUnit();
-    await getCachedWeatherData();
+    await _loadTemperatureUnit();
+    await _getCachedWeatherData();
     await getWeatherData();
   }
 
@@ -72,18 +74,20 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = WeatherData.fromJson(json: data, unitSystem: unitSystem);
+    _weatherData = WeatherData.fromJson(json: data);
     await _weatherController.insert(weatherData: _weatherData!);
 
     _hasError = false;
     _errorMessage = null;
     _isLoading = false;
 
+    await _saveLastUpdate();
+
     notifyListeners();
   }
 
   /// Gets the [WeatherData] stored in the database
-  Future<void> getCachedWeatherData() async {
+  Future<void> _getCachedWeatherData() async {
     _isLoading = true;
     notifyListeners();
 
@@ -93,18 +97,28 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = WeatherData.fromCachedJson(
-      json: result,
-      unitSystem: unitSystem,
-    );
+    _weatherData = WeatherData.fromCachedJson(json: result);
 
     _isLoading = false;
     notifyListeners();
   }
 
+  Future<void> _saveLastUpdate() async {
+    await LastUpdateService().saveUpdateTime();
+  }
+
   /// Toggles the current temperature unit and saves it to [SharedPreferences]
   Future<void> toggleTemperatureUnit() async {
-    weatherData!.toggleTemperatureUnit(fromUnit: unitSystem);
+    final double Function(double) callbackFunction;
+
+    if (unitSystem == UnitSystem.imperial) {
+      callbackFunction = TemperatureConverter.fahrenheitToCelsius;
+    } else {
+      callbackFunction = TemperatureConverter.celsiusToFahrenheit;
+    }
+
+    await weatherData!.toggleTemperatureUnit(calculate: callbackFunction);
+
     unitSystem =
         unitSystem == UnitSystem.metric
             ? UnitSystem.imperial
@@ -117,7 +131,7 @@ class WeatherProvider with ChangeNotifier {
 
   /// Gets the current temperature unit stored in [SharedPreferences]
   /// from the [UnitService] class
-  Future<void> loadTemperatureUnit() async {
+  Future<void> _loadTemperatureUnit() async {
     final stringUnit = await UnitService().loadUnit();
 
     unitSystem = UnitSystem.values.firstWhere(

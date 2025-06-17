@@ -1,7 +1,6 @@
+import 'package:climater/database/database.dart';
 import 'package:climater/util/temperature_util.dart';
 import 'package:flutter/material.dart';
-
-import '../util/temperature_converter.dart';
 
 /// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {
@@ -51,10 +50,7 @@ class WeatherData {
        _windDirection = windDirection;
 
   /// Returns a [WeatherData] from the given [json] and [UnitSystem]
-  factory WeatherData.fromJson({
-    required Map<String, dynamic> json,
-    required UnitSystem unitSystem,
-  }) {
+  factory WeatherData.fromJson({required Map<String, dynamic> json}) {
     final Map<String, dynamic> coord = json['coord'];
     final Map<String, dynamic> main = json['main'];
     final Map<String, dynamic> weather = json['weather'][0];
@@ -103,10 +99,7 @@ class WeatherData {
   ///
   /// This factory is intented to be used when retrieving data from the
   /// database
-  factory WeatherData.fromCachedJson({
-    required Map<String, dynamic> json,
-    required UnitSystem unitSystem,
-  }) {
+  factory WeatherData.fromCachedJson({required Map<String, dynamic> json}) {
     return WeatherData(
       // location
       city: json['city'],
@@ -158,33 +151,15 @@ class WeatherData {
   }
 
   /// Toggles the temperature based on the given actual unit system
-  void toggleTemperatureUnit({required UnitSystem fromUnit}) {
-    switch (fromUnit) {
-      case UnitSystem.metric:
-        _temperature = TemperatureConverter.celsiusToFahrenheit(
-          celsius: _temperature,
-        );
-        _minTemp = TemperatureConverter.celsiusToFahrenheit(celsius: _minTemp);
-        _maxTemp = TemperatureConverter.celsiusToFahrenheit(celsius: _maxTemp);
-        _feelsLike = TemperatureConverter.celsiusToFahrenheit(
-          celsius: _feelsLike,
-        );
-        break;
-      case UnitSystem.imperial:
-        _temperature = TemperatureConverter.fahrenheitToCelsius(
-          fahrenheit: _temperature,
-        );
-        _minTemp = TemperatureConverter.fahrenheitToCelsius(
-          fahrenheit: _minTemp,
-        );
-        _maxTemp = TemperatureConverter.fahrenheitToCelsius(
-          fahrenheit: _maxTemp,
-        );
-        _feelsLike = TemperatureConverter.fahrenheitToCelsius(
-          fahrenheit: _feelsLike,
-        );
-        break;
-    }
+  Future<void> toggleTemperatureUnit({
+    required double Function(double) calculate,
+  }) async {
+    _temperature = calculate(_temperature);
+    _maxTemp = calculate(_maxTemp);
+    _minTemp = calculate(_minTemp);
+    _feelsLike = calculate(_feelsLike);
+
+    await WeatherController().insert(weatherData: this);
   }
 
   /// Returns a capitalized version of the [description]
