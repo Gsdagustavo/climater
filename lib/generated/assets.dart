@@ -37,6 +37,7 @@ class Assets {
   static const String servicesThemeService = 'lib/services/theme_service.dart';
   static const String servicesUnitService = 'lib/services/unit_service.dart';
   static const String servicesWeatherService = 'lib/services/weather_service.dart';
+  static const String utilTemperatureConverter = 'lib/util/temperature_converter.dart';
   static const String utilTemperatureUtil = 'lib/util/temperature_util.dart';
   static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';
   static const String widgetsMyApp = 'lib/widgets/my_app.dart';
