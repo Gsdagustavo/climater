@@ -48,7 +48,7 @@ class WeatherData {
        _windSpeed = windSpeed,
        _windDirection = windDirection;
 
-  /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
+  /// Returns a [WeatherData] from the given [json] and [UnitSystem]
   factory WeatherData.fromJson({
     required Map<String, dynamic> json,
     required UnitSystem unitSystem,
@@ -74,6 +74,7 @@ class WeatherData {
       latitude: (coord['lat'] as num).toDouble(),
       longitude: (coord['lon'] as num).toDouble(),
 
+      // main
       main: weather['main'],
       description: weather['description'],
 
@@ -96,33 +97,45 @@ class WeatherData {
     );
   }
 
+  /// Returns a [WeatherData] from the given [json] and [UnitSystem]
+  ///
+  /// This factory is intented to be used when retrieving data from the
+  /// database
   factory WeatherData.fromCachedJson({
     required Map<String, dynamic> json,
     required UnitSystem unitSystem,
   }) {
     return WeatherData(
+      // location
       city: json['city'],
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
 
+      // main
       main: json['main'],
       description: json['description'],
 
+      // temperature
       temperature: (json['temperature'] as num).toDouble(),
       maxTemp: (json['maxTemp'] as num).toDouble(),
       minTemp: (json['minTemp'] as num).toDouble(),
       feelsLike: (json['feelsLike'] as num).toDouble(),
 
+      // pressure and humidity
       humidity: json['humidity'],
       pressure: json['pressure'],
 
+      // rain
       rain: (json['rain'] as num).toDouble(),
 
+      // wind
       windDirection: (json['windDirection'] as num).toInt(),
       windSpeed: (json['windSpeed'] as num).toDouble(),
     );
   }
 
+  /// Returns a serialized json data from the class to be stored in the
+  /// database
   Map<String, dynamic> toJson() {
     return {
       'city': _city,
@@ -142,6 +155,7 @@ class WeatherData {
     };
   }
 
+  /// Toggles the temperature based on the given actual unit system
   void toggleTemperatureUnit({required UnitSystem fromUnit}) {
     switch (fromUnit) {
       case UnitSystem.metric:
