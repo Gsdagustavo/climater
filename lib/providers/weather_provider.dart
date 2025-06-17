@@ -70,7 +70,7 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = WeatherData.fromJson(json: data);
+    _weatherData = WeatherData.fromJson(json: data, unitSystem: unitSystem);
     await _weatherController.insert(weatherData: _weatherData!);
 
     _hasError = false;
@@ -90,20 +90,24 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = WeatherData.fromCachedJson(result);
+    _weatherData = WeatherData.fromCachedJson(
+      json: result,
+      unitSystem: unitSystem,
+    );
 
     _isLoading = false;
     notifyListeners();
   }
 
   Future<void> toggleTemperatureUnit() async {
+    weatherData!.toggleTemperatureUnit(fromUnit: unitSystem);
     unitSystem =
         unitSystem == UnitSystem.metric
             ? UnitSystem.imperial
             : UnitSystem.metric;
 
     await UnitService().saveUnit(unitSystem.name);
-    await getWeatherData();
+
     notifyListeners();
   }
 

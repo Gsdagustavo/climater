@@ -1,3 +1,4 @@
+import 'package:climater/util/temperature_util.dart';
 import 'package:flutter/material.dart';
 
 /// Represents weather data collected from the [OpenWeatherMap] API
@@ -7,10 +8,10 @@ class WeatherData {
   final double _longitude;
   final String _main;
   final String _description;
-  final double _temperature;
-  final double _maxTemp;
-  final double _minTemp;
-  final double _feelsLike;
+  double _temperature;
+  double _maxTemp;
+  double _minTemp;
+  double _feelsLike;
   final int _humidity;
   final int _pressure;
   final double _rain;
@@ -48,7 +49,10 @@ class WeatherData {
        _windDirection = windDirection;
 
   /// Returns a [WeatherData] from the given [main] (json), [weather] (json) and [address]
-  factory WeatherData.fromJson({required Map<String, dynamic> json}) {
+  factory WeatherData.fromJson({
+    required Map<String, dynamic> json,
+    required UnitSystem unitSystem,
+  }) {
     final Map<String, dynamic> coord = json['coord'];
     final Map<String, dynamic> main = json['main'];
     final Map<String, dynamic> weather = json['weather'][0];
@@ -92,7 +96,10 @@ class WeatherData {
     );
   }
 
-  factory WeatherData.fromCachedJson(Map<String, dynamic> json) {
+  factory WeatherData.fromCachedJson({
+    required Map<String, dynamic> json,
+    required UnitSystem unitSystem,
+  }) {
     return WeatherData(
       city: json['city'],
       latitude: (json['latitude'] as num).toDouble(),
@@ -133,6 +140,35 @@ class WeatherData {
       'windSpeed': _windSpeed,
       'windDirection': _windDirection,
     };
+  }
+
+  void toggleTemperatureUnit({required UnitSystem fromUnit}) {
+    switch (fromUnit) {
+      case UnitSystem.metric:
+        _temperature = TemperatureConverter.celsiusToFahrenheit(
+          celsius: _temperature,
+        );
+        _minTemp = TemperatureConverter.celsiusToFahrenheit(celsius: _minTemp);
+        _maxTemp = TemperatureConverter.celsiusToFahrenheit(celsius: _maxTemp);
+        _feelsLike = TemperatureConverter.celsiusToFahrenheit(
+          celsius: _feelsLike,
+        );
+        break;
+      case UnitSystem.imperial:
+        _temperature = TemperatureConverter.fahrenheitToCelsius(
+          fahrenheit: _temperature,
+        );
+        _minTemp = TemperatureConverter.fahrenheitToCelsius(
+          fahrenheit: _minTemp,
+        );
+        _maxTemp = TemperatureConverter.fahrenheitToCelsius(
+          fahrenheit: _maxTemp,
+        );
+        _feelsLike = TemperatureConverter.fahrenheitToCelsius(
+          fahrenheit: _feelsLike,
+        );
+        break;
+    }
   }
 
   /// Returns a capitalized version of the [description]
