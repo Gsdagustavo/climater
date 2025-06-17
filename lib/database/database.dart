@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../model/weather_data.dart';
 
+/// This class represents a connection with the SQLite database
 class DBConnection {
   static const int version = 1;
   static const String dbName = 'weather.db';
@@ -21,6 +22,7 @@ class DBConnection {
   }
 }
 
+/// This class represents a table on the SQLite database
 class WeatherTable {
   static const String tableName = 'weather';
 
@@ -59,6 +61,7 @@ class WeatherTable {
   ''';
 }
 
+/// This class is a controller for making operations (insert, select) in the Weather table
 class WeatherController {
   Future<void> insert({required WeatherData weatherData}) async {
     final startTime = DateTime.now();
