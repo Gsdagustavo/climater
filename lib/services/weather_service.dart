@@ -22,12 +22,12 @@ class WeatherService {
 
     final response = await http.get(uri);
 
-    debugPrint('Response: ${response.toString()}');
+    // debugPrint('Response: ${response.toString()}');
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      debugPrint('Result: $result');
+      // debugPrint('Result: $result');
 
       return result;
     } else {
