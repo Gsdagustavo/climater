@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
             Consumer<LastUpdateProvider>(
               builder: (_, state, __) {
                 return Text(
-                  'Last update: ${state.lastUpdateTime ?? 'Never updated'}',
+                  'Last update: ${state.lastUpdateTime}',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 );
               },
