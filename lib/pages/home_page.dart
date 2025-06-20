@@ -1,4 +1,5 @@
 import 'package:climater/core/constants/version.dart';
+import 'package:climater/providers/last_update_provider.dart';
 import 'package:climater/providers/theme_provider.dart';
 import 'package:climater/providers/weather_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,54 +17,71 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => WeatherProvider(),
-      child: Scaffold(
-        appBar: AppBar(title: Text('Climater'), centerTitle: true),
-
-        body: Consumer<WeatherProvider>(
-          builder: (_, weatherState, __) {
-            final weatherData = weatherState.weatherData;
-
-            if (weatherState.isLoading) {
-              return Center(child: CircularProgressIndicator.adaptive());
-            }
-
-            if (weatherData == null) {
-              return Center(
-                child: Text(
-                  'An unknown error occurred',
-                  style: TextStyle(color: Colors.red.shade300),
+    return Consumer<WeatherProvider>(
+      builder: (_, weatherState, __) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Climater'),
+                Consumer<LastUpdateProvider>(
+                  builder: (_, state, __) {
+                    return Text(
+                      'Last update: ${state.lastUpdateTime ?? 'Never updated'}',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    );
+                  },
                 ),
-              );
-            }
+              ],
+            ),
+            centerTitle: true,
+          ),
 
-            if (weatherState.hasError) {
-              return Center(
-                child: Text(
-                  'Error: ${weatherState.errorMessage!}',
-                  style: TextStyle(color: Colors.red.shade300),
-                ),
-              );
-            }
+          body: Builder(
+            builder: (context) {
+              final weatherData = weatherState.weatherData;
 
-            return RefreshIndicator(
-              onRefresh: weatherState.getWeatherData,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 50,
+              if (weatherState.isLoading) {
+                return Center(child: CircularProgressIndicator.adaptive());
+              }
+
+              if (weatherData == null) {
+                return Center(
+                  child: Text(
+                    'An unknown error occurred',
+                    style: TextStyle(color: Colors.red.shade300),
                   ),
-                  child: WeatherWidget(weatherData: weatherData),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              }
 
-        drawer: const _HomePageDrawer(),
-      ),
+              if (weatherState.hasError) {
+                return Center(
+                  child: Text(
+                    'Error: ${weatherState.errorMessage!}',
+                    style: TextStyle(color: Colors.red.shade300),
+                  ),
+                );
+              }
+
+              return RefreshIndicator(
+                onRefresh: weatherState.getWeatherData,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 50,
+                    ),
+                    child: WeatherWidget(weatherData: weatherData),
+                  ),
+                ),
+              );
+            },
+          ),
+
+          drawer: const _HomePageDrawer(),
+        );
+      },
     );
   }
 }

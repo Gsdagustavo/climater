@@ -27,6 +27,7 @@ class Assets {
   static const String libMain = 'lib/main.dart';
   static const String modelWeatherData = 'lib/model/weather_data.dart';
   static const String pagesHomePage = 'lib/pages/home_page.dart';
+  static const String providersLastUpdateProvider = 'lib/providers/last_update_provider.dart';
   static const String providersThemeProvider = 'lib/providers/theme_provider.dart';
   static const String providersWeatherProvider = 'lib/providers/weather_provider.dart';
   static const String screenshotsDrawerDark = 'assets/screenshots/drawer_dark.png';

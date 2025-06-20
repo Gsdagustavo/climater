@@ -1,5 +1,5 @@
 import 'package:climater/database/database.dart';
-import 'package:climater/services/last_update_service.dart';
+import 'package:climater/providers/last_update_provider.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/unit_service.dart';
 import 'package:climater/services/weather_service.dart';
@@ -18,6 +18,7 @@ import '../util/temperature_util.dart';
 /// APIs and organizes it on the [_weatherData] variable
 class WeatherProvider with ChangeNotifier {
   final WeatherController _weatherController = WeatherController();
+  LastUpdateProvider lastUpdateProvider;
 
   WeatherData? _weatherData;
 
@@ -35,7 +36,7 @@ class WeatherProvider with ChangeNotifier {
 
   String? get errorMessage => _errorMessage;
 
-  WeatherProvider() {
+  WeatherProvider(this.lastUpdateProvider) {
     _init();
   }
 
@@ -81,6 +82,10 @@ class WeatherProvider with ChangeNotifier {
     _errorMessage = null;
     _isLoading = false;
 
+    debugPrint(
+      'CALLING SAVE LAST UPDATE ON WEATHER PROVIDER ON GETWEATHERDATA FUNCTION.',
+    );
+
     await _saveLastUpdate();
 
     notifyListeners();
@@ -104,7 +109,8 @@ class WeatherProvider with ChangeNotifier {
   }
 
   Future<void> _saveLastUpdate() async {
-    await LastUpdateService().saveUpdateTime();
+    await lastUpdateProvider.saveLastUpdate();
+    debugPrint('SAVE UPDATE TIME CALLED ON WEATHER PROVIDER.');
   }
 
   /// Toggles the current temperature unit and saves it to [SharedPreferences]
@@ -140,5 +146,9 @@ class WeatherProvider with ChangeNotifier {
     );
 
     notifyListeners();
+  }
+
+  void updateLastUpdateProvider(LastUpdateProvider newProvider) {
+    lastUpdateProvider = newProvider;
   }
 }
