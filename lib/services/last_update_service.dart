@@ -27,6 +27,7 @@ class LastUpdateService {
       lastUpdateTime = DateTime.now();
       final millis = lastUpdateTime.millisecondsSinceEpoch;
       await prefs.setInt(lastUpdateKey, millis);
+      return;
     }
 
     lastUpdateTime = DateTime.fromMillisecondsSinceEpoch(millis!);
