@@ -91,7 +91,7 @@ class WeatherController {
     final deltaTime = endTime.difference(startTime);
 
     debugPrint('Select took ${deltaTime.inMilliseconds} ms');
-    debugPrint('DB Select result length: ${result.length}');
+    // debugPrint('DB Select result length: ${result.length}');
 
     if (result.isEmpty) {
       return null;
