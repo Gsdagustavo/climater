@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
       ),
 
       body: Consumer<WeatherProvider>(
-        builder: (_, weatherState, __) {`
+        builder: (_, weatherState, __) {
           final weatherData = weatherState.weatherData;
 
           if (weatherState.isLoading) {
