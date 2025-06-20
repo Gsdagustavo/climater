@@ -20,6 +20,7 @@ class LastUpdateService {
     debugPrint(
       'LOAD UPDATE TIME CALLED ON LAST UPDATE SERVICE. TIME: $lastUpdateTime',
     );
+
     final prefs = await SharedPreferences.getInstance();
     final int? millis = prefs.getInt(lastUpdateKey);
 
@@ -30,7 +31,7 @@ class LastUpdateService {
       return;
     }
 
-    lastUpdateTime = DateTime.fromMillisecondsSinceEpoch(millis!);
+    lastUpdateTime = DateTime.fromMillisecondsSinceEpoch(millis);
   }
 
   String getLastUpdateFormatted() {
@@ -38,10 +39,8 @@ class LastUpdateService {
     final now = DateTime.now();
     final diff = now.difference(lastUpdateTime);
 
-    if (diff.inSeconds < 10) {
+    if (diff.inSeconds < 60) {
       return 'Just now';
-    } else if (diff.inSeconds < 60) {
-      return '${diff.inSeconds} seconds ago';
     } else if (diff.inMinutes < 60) {
       return '${diff.inMinutes} minutes ago';
     } else if (diff.inHours < 24) {
