@@ -1,3 +1,4 @@
+import 'package:climater/l10n/app_localizations.dart';
 import 'package:climater/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +25,19 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (_, state, __) {
           return MaterialApp(
+            /// App title
             title: appTitle,
             debugShowCheckedModeBanner: showDebugBanner,
+
+            /// Routes
             routes: {'/homePage': (_) => const HomePage()},
             initialRoute: '/homePage',
+
+            /// Localization
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+
+            /// Theme from ThemeProvider
             theme: state.themeData,
           );
         },

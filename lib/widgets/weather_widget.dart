@@ -1,3 +1,4 @@
+import 'package:climater/l10n/app_localizations.dart';
 import 'package:climater/providers/weather_provider.dart';
 import 'package:climater/util/temperature_util.dart';
 import 'package:climater/widgets/weather_image.dart';
@@ -124,7 +125,8 @@ class _FullWeatherInfos extends StatelessWidget {
       children: [
         /// Temperature infos
         _FabWeatherInfo(
-          label: 'Temperature',
+          label:
+              AppLocalizations.of(context)?.temperature_label ?? 'Temperature',
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             spacing: 15,
@@ -184,7 +186,7 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Wind infos
         _FabWeatherInfo(
-          label: 'Wind',
+          label: AppLocalizations.of(context)?.wind_label ?? 'Wind',
           child: Row(
             children: [
               FabContainer(
@@ -226,7 +228,7 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Rain infos
         _FabWeatherInfo(
-          label: 'Rain',
+          label: AppLocalizations.of(context)?.rain_label ?? 'Rain',
           child: FabContainer(
             child: Row(
               children: [
@@ -245,7 +247,7 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Other infos (humidity and pressure)
         _FabWeatherInfo(
-          label: 'Other infos',
+          label: AppLocalizations.of(context)?.other_label ?? 'Other',
           child: Row(
             children: [
               FabContainer(

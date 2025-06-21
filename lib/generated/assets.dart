@@ -24,6 +24,8 @@ class Assets {
   static const String images13n2x = 'assets/images/13n@2x.png';
   static const String images50d2x = 'assets/images/50d@2x.png';
   static const String images50n2x = 'assets/images/50n@2x.png';
+  static const String l10nAppEn = 'lib/l10n/app_en.arb';
+  static const String l10nAppPt = 'lib/l10n/app_pt.arb';
   static const String libMain = 'lib/main.dart';
   static const String modelWeatherData = 'lib/model/weather_data.dart';
   static const String pagesHomePage = 'lib/pages/home_page.dart';
@@ -39,6 +41,7 @@ class Assets {
   static const String servicesThemeService = 'lib/services/theme_service.dart';
   static const String servicesUnitService = 'lib/services/unit_service.dart';
   static const String servicesWeatherService = 'lib/services/weather_service.dart';
+  static const String utilLanguages = 'lib/util/languages.dart';
   static const String utilTemperatureConverter = 'lib/util/temperature_converter.dart';
   static const String utilTemperatureUtil = 'lib/util/temperature_util.dart';
   static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';

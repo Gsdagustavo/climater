@@ -1,0 +1,7 @@
+{
+    "language": "portugues",
+    "temperature_label": "Temperatura",
+    "wind_label": "Vento",
+    "rain_label": "Chuva",
+    "other_label": "Misc"
+}

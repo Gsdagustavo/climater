@@ -45,6 +45,12 @@ dependencies:
   location: ^8.0.0
   sqflite: ^2.4.2
   path: ^1.9.1
+  intl: ^0.20.2
+
+  flutter_localizations:
+    sdk: flutter
+  build_runner: ^2.4.15
+  flutter_gen: ^5.10.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +78,8 @@ flutter:
     - .env
     - assets/images/
     - lib/widgets/
+
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,0 +1,7 @@
+{
+    "language": "english",
+    "temperature_label": "Temperature",
+    "wind_label": "Wind",
+    "rain_label": "Rain",
+    "other_label": "Other"
+}
