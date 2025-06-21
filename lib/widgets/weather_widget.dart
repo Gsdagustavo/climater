@@ -42,9 +42,9 @@ class WeatherWidget extends StatelessWidget {
         /// Temperature
         Consumer<WeatherProvider>(
           builder: (_, state, __) {
-            return Text(
-              '${weatherData.temperature.toStringAsFixed(0)} °${TemperatureUtil.getTemperatureInitial(state.unitSystem)}',
-              style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+            return _TemperatureLabel(
+              temperature: state.weatherData!.temperature,
+              unitSystem: state.unitSystem,
             );
           },
         ),
@@ -53,6 +53,54 @@ class WeatherWidget extends StatelessWidget {
 
         _FullWeatherInfos(weatherData: weatherData),
       ],
+    );
+  }
+}
+
+class _TemperatureLabel extends StatefulWidget {
+  const _TemperatureLabel({
+    required this.temperature,
+    required this.unitSystem,
+  });
+
+  final double temperature;
+  final UnitSystem unitSystem;
+
+  @override
+  State<_TemperatureLabel> createState() => _TemperatureLabelState();
+}
+
+class _TemperatureLabelState extends State<_TemperatureLabel> {
+  late double oldTemperature;
+
+  @override
+  void initState() {
+    super.initState();
+    oldTemperature = widget.temperature;
+  }
+
+  @override
+  void didUpdateWidget(covariant _TemperatureLabel oldWidget) {
+    if (oldWidget.temperature != widget.temperature) {
+      oldTemperature = oldWidget.temperature;
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      curve: Curves.easeInOutQuad,
+      tween: Tween<double>(begin: oldTemperature, end: widget.temperature),
+      key: ValueKey(widget.temperature),
+      duration: const Duration(seconds: 3),
+      builder: (context, value, child) {
+        return Text(
+          '${value.toStringAsFixed(0)} °${TemperatureUtil.getTemperatureInitial(widget.unitSystem)}',
+          style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+        );
+      },
     );
   }
 }
