@@ -1,4 +1,5 @@
 import 'package:climater/core/constants/version.dart';
+import 'package:climater/l10n/app_localizations.dart';
 import 'package:climater/providers/last_update_provider.dart';
 import 'package:climater/providers/theme_provider.dart';
 import 'package:climater/providers/weather_provider.dart';
@@ -17,6 +18,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final lang = AppLocalizations.of(context)?.language;
+    debugPrint('Language: $lang');
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -33,6 +38,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+
         centerTitle: true,
       ),
 

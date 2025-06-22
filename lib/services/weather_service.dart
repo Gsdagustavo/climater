@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -15,19 +16,22 @@ class WeatherService {
     required double latitude,
     required double longitude,
     UnitSystem unit = UnitSystem.metric,
+    String? languageCode,
   }) async {
+    final lang = languageCode ?? ui.window.locale.languageCode;
+
     final uri = Uri.parse(
-      'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$_apiKey&units=${unit.name}',
+      'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$_apiKey&units=${unit.name}&lang=$lang',
     );
 
     final response = await http.get(uri);
 
-    // debugPrint('Response: ${response.toString()}');
+    debugPrint('Response: ${response.toString()}');
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as Map<String, dynamic>;
 
-      // debugPrint('Result: $result');
+      debugPrint('Result: $result');
 
       return result;
     } else {

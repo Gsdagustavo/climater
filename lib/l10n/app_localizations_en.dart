@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get language => 'english';
+  String get language => 'en';
 
   @override
   String get temperature => 'Temperature';
