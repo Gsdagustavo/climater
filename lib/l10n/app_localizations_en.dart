@@ -15,6 +15,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get last_update => 'Last update';
 
   @override
+  String get just_now_text => 'Just now';
+
+  @override
+  String get minutes_ago_text => 'minutes ago';
+
+  @override
+  String get hours_ago_text => 'hours ago';
+
+  @override
+  String get days_ago_text => 'days ago';
+
+  @override
   String get dark_mode => 'Dark mode';
 
   @override

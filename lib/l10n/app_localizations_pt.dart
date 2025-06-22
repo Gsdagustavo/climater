@@ -15,6 +15,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get last_update => 'Última atualização';
 
   @override
+  String get just_now_text => 'Agora mesmo';
+
+  @override
+  String get minutes_ago_text => 'minutos atrás';
+
+  @override
+  String get hours_ago_text => 'horas atrás';
+
+  @override
+  String get days_ago_text => 'dias atrás';
+
+  @override
   String get dark_mode => 'Modo escuro';
 
   @override

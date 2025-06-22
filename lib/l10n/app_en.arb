@@ -3,6 +3,11 @@
 
     "last_update": "Last update",
 
+    "just_now_text": "Just now",
+    "minutes_ago_text": "minutes ago",
+    "hours_ago_text": "hours ago",
+    "days_ago_text": "days ago",
+
     "dark_mode": "Dark mode",
     "temperature_unit": "Temperature unit",
 

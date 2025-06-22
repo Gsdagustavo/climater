@@ -1,5 +1,10 @@
+import 'dart:ui' as ui;
+
+import 'package:climater/l10n/app_localizations_en.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../l10n/app_localizations_pt.dart';
 
 class LastUpdateService {
   static const lastUpdateKey = 'lastUpdate';
@@ -34,19 +39,71 @@ class LastUpdateService {
     lastUpdateTime = DateTime.fromMillisecondsSinceEpoch(millis);
   }
 
-  String getLastUpdateFormatted() {
+  String getLastUpdateFormatted({String? languageCode}) {
     // debugPrint('GOT LAST UPDATE FORMATTED');
     final now = DateTime.now();
     final diff = now.difference(lastUpdateTime);
 
     if (diff.inSeconds < 60) {
-      return 'Just now';
+      return _getJustNowText();
     } else if (diff.inMinutes < 60) {
-      return '${diff.inMinutes} minutes ago';
+      return '${diff.inMinutes} ${_getMinutesAgoText()}';
     } else if (diff.inHours < 24) {
-      return '${diff.inHours} hours ago';
+      return '${diff.inHours} ${_getHoursAgoText()}';
     } else {
-      return '${diff.inDays} days ago';
+      return '${diff.inDays} ${_getDaysAgoText()}';
     }
+  }
+}
+
+String _getJustNowText({String? languageCode}) {
+  final lang = languageCode ?? ui.window.locale.languageCode;
+
+  switch (lang) {
+    case 'en':
+      return AppLocalizationsEn().just_now_text;
+    case 'pt':
+      return AppLocalizationsPt().just_now_text;
+    default:
+      return 'Just now';
+  }
+}
+
+String _getMinutesAgoText({String? languageCode}) {
+  final lang = languageCode ?? ui.window.locale.languageCode;
+
+  switch (lang) {
+    case 'en':
+      return AppLocalizationsEn().minutes_ago_text;
+    case 'pt':
+      return AppLocalizationsPt().minutes_ago_text;
+    default:
+      return 'minutes ago';
+  }
+}
+
+String _getHoursAgoText({String? languageCode}) {
+  final lang = languageCode ?? ui.window.locale.languageCode;
+
+  switch (lang) {
+    case 'en':
+      return AppLocalizationsEn().hours_ago_text;
+    case 'pt':
+      return AppLocalizationsPt().hours_ago_text;
+    default:
+      return 'hours ago';
+  }
+}
+
+String _getDaysAgoText({String? languageCode}) {
+  final lang = languageCode ?? ui.window.locale.languageCode;
+
+  switch (lang) {
+    case 'en':
+      return AppLocalizationsEn().days_ago_text;
+    case 'pt':
+      return AppLocalizationsPt().days_ago_text;
+    default:
+      return 'days ago';
   }
 }

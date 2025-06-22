@@ -110,6 +110,30 @@ abstract class AppLocalizations {
   /// **'Last update'**
   String get last_update;
 
+  /// No description provided for @just_now_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get just_now_text;
+
+  /// No description provided for @minutes_ago_text.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes ago'**
+  String get minutes_ago_text;
+
+  /// No description provided for @hours_ago_text.
+  ///
+  /// In en, this message translates to:
+  /// **'hours ago'**
+  String get hours_ago_text;
+
+  /// No description provided for @days_ago_text.
+  ///
+  /// In en, this message translates to:
+  /// **'days ago'**
+  String get days_ago_text;
+
   /// No description provided for @dark_mode.
   ///
   /// In en, this message translates to:
