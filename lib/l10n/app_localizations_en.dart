@@ -12,14 +12,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'english';
 
   @override
-  String get temperature_label => 'Temperature';
+  String get temperature => 'Temperature';
 
   @override
-  String get wind_label => 'Wind';
+  String get max_temperature => 'Max';
 
   @override
-  String get rain_label => 'Rain';
+  String get min_temperature => 'Min';
 
   @override
-  String get other_label => 'Other';
+  String get feels_like => 'Feels Like';
+
+  @override
+  String get wind => 'Wind';
+
+  @override
+  String get wind_direction => 'Direction';
+
+  @override
+  String get wind_speed => 'Speed';
+
+  @override
+  String get rain => 'Rain';
+
+  @override
+  String get precipitation => 'Precipitation';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get humidity => 'Humidity';
+
+  @override
+  String get pressure => 'Pressure';
 }

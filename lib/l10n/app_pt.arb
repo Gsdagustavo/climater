@@ -1,7 +1,19 @@
 {
     "language": "portugues",
-    "temperature_label": "Temperatura",
-    "wind_label": "Vento",
-    "rain_label": "Chuva",
-    "other_label": "Misc"
+
+    "temperature": "Temperatura",
+    "max_temperature": "Max",
+    "min_temperature": "Min",
+    "feels_like": "Sensação Térmica",
+
+    "wind": "Vento",
+    "wind_direction": "Direção",
+    "wind_speed": "Velocidade",
+
+    "rain": "Chuva",
+    "precipitation": "Precipitação",
+
+    "other": "Misc",
+    "humidity": "Umidade",
+    "pressure": "Pressão"
 }

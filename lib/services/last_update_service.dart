@@ -35,7 +35,7 @@ class LastUpdateService {
   }
 
   String getLastUpdateFormatted() {
-    debugPrint('GOT LAST UPDATE FORMATTED');
+    // debugPrint('GOT LAST UPDATE FORMATTED');
     final now = DateTime.now();
     final diff = now.difference(lastUpdateTime);
 

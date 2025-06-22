@@ -125,8 +125,7 @@ class _FullWeatherInfos extends StatelessWidget {
       children: [
         /// Temperature infos
         _FabWeatherInfo(
-          label:
-              AppLocalizations.of(context)?.temperature_label ?? 'Temperature',
+          label: AppLocalizations.of(context)?.temperature ?? 'Temperature',
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             spacing: 15,
@@ -186,7 +185,7 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Wind infos
         _FabWeatherInfo(
-          label: AppLocalizations.of(context)?.wind_label ?? 'Wind',
+          label: AppLocalizations.of(context)?.wind ?? 'Wind',
           child: Row(
             children: [
               FabContainer(
@@ -228,14 +227,14 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Rain infos
         _FabWeatherInfo(
-          label: AppLocalizations.of(context)?.rain_label ?? 'Rain',
+          label: AppLocalizations.of(context)?.rain ?? 'Rain',
           child: FabContainer(
             child: Row(
               children: [
                 Icon(Icons.cloudy_snowing),
                 Padding(padding: EdgeInsets.all(5)),
                 Text(
-                  'Precipitation: ${weatherData.rain} mm/h',
+                  '${AppLocalizations.of(context)?.precipitation ?? 'Precipitation'} ${weatherData.rain} mm/h',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ],
@@ -247,7 +246,7 @@ class _FullWeatherInfos extends StatelessWidget {
 
         /// Other infos (humidity and pressure)
         _FabWeatherInfo(
-          label: AppLocalizations.of(context)?.other_label ?? 'Other',
+          label: AppLocalizations.of(context)?.other ?? 'Other',
           child: Row(
             children: [
               FabContainer(

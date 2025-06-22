@@ -104,29 +104,77 @@ abstract class AppLocalizations {
   /// **'english'**
   String get language;
 
-  /// No description provided for @temperature_label.
+  /// No description provided for @temperature.
   ///
   /// In en, this message translates to:
   /// **'Temperature'**
-  String get temperature_label;
+  String get temperature;
 
-  /// No description provided for @wind_label.
+  /// No description provided for @max_temperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Max'**
+  String get max_temperature;
+
+  /// No description provided for @min_temperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Min'**
+  String get min_temperature;
+
+  /// No description provided for @feels_like.
+  ///
+  /// In en, this message translates to:
+  /// **'Feels Like'**
+  String get feels_like;
+
+  /// No description provided for @wind.
   ///
   /// In en, this message translates to:
   /// **'Wind'**
-  String get wind_label;
+  String get wind;
 
-  /// No description provided for @rain_label.
+  /// No description provided for @wind_direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Direction'**
+  String get wind_direction;
+
+  /// No description provided for @wind_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get wind_speed;
+
+  /// No description provided for @rain.
   ///
   /// In en, this message translates to:
   /// **'Rain'**
-  String get rain_label;
+  String get rain;
 
-  /// No description provided for @other_label.
+  /// No description provided for @precipitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Precipitation'**
+  String get precipitation;
+
+  /// No description provided for @other.
   ///
   /// In en, this message translates to:
   /// **'Other'**
-  String get other_label;
+  String get other;
+
+  /// No description provided for @humidity.
+  ///
+  /// In en, this message translates to:
+  /// **'Humidity'**
+  String get humidity;
+
+  /// No description provided for @pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Pressure'**
+  String get pressure;
 }
 
 class _AppLocalizationsDelegate

@@ -1,7 +1,19 @@
 {
     "language": "english",
-    "temperature_label": "Temperature",
-    "wind_label": "Wind",
-    "rain_label": "Rain",
-    "other_label": "Other"
+
+    "temperature": "Temperature",
+    "max_temperature": "Max",
+    "min_temperature": "Min",
+    "feels_like": "Feels Like",
+
+    "wind": "Wind",
+    "wind_direction": "Direction",
+    "wind_speed": "Speed",
+
+    "rain": "Rain",
+    "precipitation": "Precipitation",
+
+    "other": "Other",
+    "humidity": "Humidity",
+    "pressure": "Pressure"
 }
