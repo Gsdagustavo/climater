@@ -139,7 +139,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Min: ${weatherData.minTemp.toStringAsFixed(0)} °$temperatureInitial',
+                      '${AppLocalizations.of(context)?.min_temperature ?? 'Min'}: ${weatherData.minTemp.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -155,7 +155,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Max: ${weatherData.maxTemp.toStringAsFixed(0)} °$temperatureInitial',
+                      '${AppLocalizations.of(context)?.max_temperature ?? 'Max'}: ${weatherData.maxTemp.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -171,7 +171,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Feels like: ${weatherData.feelsLike.toStringAsFixed(0)} °$temperatureInitial',
+                      '${AppLocalizations.of(context)?.feels_like ?? 'Feels like'}: ${weatherData.feelsLike.toStringAsFixed(0)} °$temperatureInitial',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],
@@ -196,7 +196,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Wind direction: ${weatherData.windDirection} °',
+                      '${AppLocalizations.of(context)?.wind_direction ?? 'Wind direction'}: ${weatherData.windDirection} °',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
@@ -213,7 +213,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Wind speed: ${weatherData.windSpeed} m/s',
+                      '${AppLocalizations.of(context)?.wind_speed ?? 'Wind speed'}: ${weatherData.windSpeed} m/s',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
@@ -234,7 +234,7 @@ class _FullWeatherInfos extends StatelessWidget {
                 Icon(Icons.cloudy_snowing),
                 Padding(padding: EdgeInsets.all(5)),
                 Text(
-                  '${AppLocalizations.of(context)?.precipitation ?? 'Precipitation'} ${weatherData.rain} mm/h',
+                  '${AppLocalizations.of(context)?.precipitation ?? 'Precipitation'}: ${weatherData.rain} mm/h',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ],
@@ -257,7 +257,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Humidity: ${weatherData.humidity}%',
+                      '${AppLocalizations.of(context)?.humidity ?? 'Humidity'}: ${weatherData.humidity}%',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
@@ -274,7 +274,7 @@ class _FullWeatherInfos extends StatelessWidget {
                     Padding(padding: EdgeInsets.all(5)),
 
                     Text(
-                      'Pressure: ${weatherData.pressure} hpa',
+                      '${AppLocalizations.of(context)?.pressure ?? 'Pressure'}: ${weatherData.pressure} hpa',
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
