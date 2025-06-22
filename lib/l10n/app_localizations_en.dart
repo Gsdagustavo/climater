@@ -12,6 +12,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'en';
 
   @override
+  String get last_update => 'Last update';
+
+  @override
+  String get dark_mode => 'Dark mode';
+
+  @override
+  String get temperature_unit => 'Temperature unit';
+
+  @override
+  String get version => 'Version';
+
+  @override
   String get temperature => 'Temperature';
 
   @override

@@ -18,7 +18,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final lang = AppLocalizations.of(context)?.language;
     debugPrint('Language: $lang');
 
@@ -31,7 +30,7 @@ class HomePage extends StatelessWidget {
             Consumer<LastUpdateProvider>(
               builder: (_, state, __) {
                 return Text(
-                  'Last update: ${state.lastUpdateTime}',
+                  '${AppLocalizations.of(context)?.last_update ?? 'Last update'}: ${state.lastUpdateTime}',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 );
               },
@@ -108,9 +107,10 @@ class _HomePageDrawer extends StatelessWidget {
 
                 ListTile(
                   title: Text(
-                    'Dark mode',
+                    AppLocalizations.of(context)?.dark_mode ?? 'Dark mode',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+
                   trailing: Switch(
                     value: themeState.isDarkMode,
                     onChanged: (_) => themeState.toggleTheme(),
@@ -119,7 +119,8 @@ class _HomePageDrawer extends StatelessWidget {
 
                 ListTile(
                   title: Text(
-                    'Temperature unit',
+                    AppLocalizations.of(context)?.temperature_unit ??
+                        'Temperature unit',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   trailing: _TemperaturesDropDownButton(),
@@ -131,7 +132,8 @@ class _HomePageDrawer extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: ListTile(
                     title: Text(
-                      'Version $appVersion',
+                      '${AppLocalizations.of(context)?.version ?? 'Version'}'
+                      ': $appVersion',
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).hintColor,

@@ -104,6 +104,30 @@ abstract class AppLocalizations {
   /// **'en'**
   String get language;
 
+  /// No description provided for @last_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Last update'**
+  String get last_update;
+
+  /// No description provided for @dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get dark_mode;
+
+  /// No description provided for @temperature_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature unit'**
+  String get temperature_unit;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
   /// No description provided for @temperature.
   ///
   /// In en, this message translates to:

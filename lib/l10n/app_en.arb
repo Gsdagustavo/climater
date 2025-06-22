@@ -1,6 +1,13 @@
 {
     "language": "en",
 
+    "last_update": "Last update",
+
+    "dark_mode": "Dark mode",
+    "temperature_unit": "Temperature unit",
+
+    "version": "Version",
+
     "temperature": "Temperature",
     "max_temperature": "Max",
     "min_temperature": "Min",

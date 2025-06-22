@@ -12,6 +12,18 @@ class AppLocalizationsPt extends AppLocalizations {
   String get language => 'pt_br';
 
   @override
+  String get last_update => 'Última atualização';
+
+  @override
+  String get dark_mode => 'Modo escuro';
+
+  @override
+  String get temperature_unit => 'Unidade de temperatura';
+
+  @override
+  String get version => 'Versão';
+
+  @override
   String get temperature => 'Temperatura';
 
   @override

@@ -1,6 +1,13 @@
 {
     "language": "pt_br",
 
+    "last_update": "Última atualização",
+
+    "dark_mode": "Modo escuro",
+    "temperature_unit": "Unidade de temperatura",
+
+    "version": "Versão",
+
     "temperature": "Temperatura",
     "max_temperature": "Max",
     "min_temperature": "Min",
