@@ -1,5 +1,5 @@
 import 'package:climater/database/database.dart';
-import 'package:climater/providers/last_update_provider.dart';
+import 'package:climater/presentation/states/last_update_provider.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/unit_service.dart';
 import 'package:climater/services/weather_service.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/weather_data.dart';
-import '../util/temperature_util.dart';
+import '../../entities/weather_data.dart';
+import '../../util/temperature_util.dart';
 
 /// This is a provider to be used in the Home Page to display the current weather
 /// situation

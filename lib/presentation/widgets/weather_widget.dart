@@ -1,18 +1,18 @@
 import 'package:climater/l10n/app_localizations.dart';
-import 'package:climater/providers/weather_provider.dart';
+import 'package:climater/presentation/widgets/weather_image.dart';
 import 'package:climater/util/temperature_util.dart';
-import 'package:climater/widgets/weather_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../model/weather_data.dart';
+import '../../entities/weather_data.dart';
+import '../states/weather_provider.dart';
 import 'fab_container.dart';
 
 /// This is the main widget that will be displayed in the [HomePage]
 ///
 /// It contains the current city, the weather description, an image representing
-/// the weather, the temperature (displayed in Celsisus), and many other infos
+/// the weather, the temperature (displayed in Celsisus), and many other infosx
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({super.key, required this.weatherData});
 
@@ -92,11 +92,11 @@ class _TemperatureLabelState extends State<_TemperatureLabel> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      curve: Curves.easeInOutQuad,
       tween: Tween<double>(begin: oldTemperature, end: widget.temperature),
+      curve: Curves.easeInOutQuad,
       key: ValueKey(widget.temperature),
       duration: const Duration(seconds: 3),
-      builder: (context, value, child) {
+      builder: (_, value, __) {
         return Text(
           '${value.toStringAsFixed(0)} °${TemperatureUtil.getTemperatureInitial(widget.unitSystem)}',
           style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),

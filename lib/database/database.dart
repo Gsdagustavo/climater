@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../model/weather_data.dart';
+import '../entities/weather_data.dart';
 
 /// This class represents a connection with the SQLite database
 class DBConnection {

@@ -1,6 +1,5 @@
 import 'package:climater/database/database.dart';
 import 'package:climater/util/temperature_util.dart';
-import 'package:flutter/material.dart';
 
 /// Represents weather data collected from the [OpenWeatherMap] API
 class WeatherData {

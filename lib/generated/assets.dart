@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String climater = '.env';
+  static const String constantsAppRoutes = 'lib/core/constants/app_routes.dart';
   static const String constantsVersion = 'lib/core/constants/version.dart';
   static const String databaseDatabase = 'lib/database/database.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
@@ -25,10 +26,13 @@ class Assets {
   static const String images50d2x = 'assets/images/50d@2x.png';
   static const String images50n2x = 'assets/images/50n@2x.png';
   static const String l10nAppEn = 'lib/l10n/app_en.arb';
+  static const String l10nAppLocalizations = 'lib/l10n/app_localizations.dart';
+  static const String l10nAppLocalizationsEn = 'lib/l10n/app_localizations_en.dart';
+  static const String l10nAppLocalizationsPt = 'lib/l10n/app_localizations_pt.dart';
   static const String l10nAppPt = 'lib/l10n/app_pt.arb';
   static const String libMain = 'lib/main.dart';
   static const String modelWeatherData = 'lib/model/weather_data.dart';
-  static const String pagesHomePage = 'lib/pages/home_page.dart';
+  static const String pagesHomePage = 'lib/presentation/pages/home_page.dart';
   static const String providersLastUpdateProvider = 'lib/providers/last_update_provider.dart';
   static const String providersThemeProvider = 'lib/providers/theme_provider.dart';
   static const String providersWeatherProvider = 'lib/providers/weather_provider.dart';
@@ -44,9 +48,9 @@ class Assets {
   static const String utilLanguages = 'lib/util/languages.dart';
   static const String utilTemperatureConverter = 'lib/util/temperature_converter.dart';
   static const String utilTemperatureUtil = 'lib/util/temperature_util.dart';
-  static const String widgetsFabContainer = 'lib/widgets/fab_container.dart';
-  static const String widgetsMyApp = 'lib/widgets/my_app.dart';
-  static const String widgetsWeatherImage = 'lib/widgets/weather_image.dart';
-  static const String widgetsWeatherWidget = 'lib/widgets/weather_widget.dart';
+  static const String widgetsFabContainer = 'lib/presentation/widgets/fab_container.dart';
+  static const String widgetsMyApp = 'lib/presentation/widgets/my_app.dart';
+  static const String widgetsWeatherImage = 'lib/presentation/widgets/weather_image.dart';
+  static const String widgetsWeatherWidget = 'lib/presentation/widgets/weather_widget.dart';
 
 }

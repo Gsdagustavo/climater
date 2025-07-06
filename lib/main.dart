@@ -1,6 +1,6 @@
-import 'package:climater/providers/last_update_provider.dart';
-import 'package:climater/providers/weather_provider.dart';
-import 'package:climater/widgets/my_app.dart';
+import 'package:climater/presentation/states/last_update_provider.dart';
+import 'package:climater/presentation/states/weather_provider.dart';
+import 'package:climater/presentation/widgets/my_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';

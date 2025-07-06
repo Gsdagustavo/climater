@@ -1,9 +1,9 @@
+import 'package:climater/core/constants/app_routes.dart';
 import 'package:climater/l10n/app_localizations.dart';
-import 'package:climater/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/home_page.dart';
+import '../states/theme_provider.dart';
 
 /// Represents the name of the app
 const String appTitle = 'Climater';
@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: showDebugBanner,
 
             /// Routes
-            routes: {'/homePage': (_) => const HomePage()},
-            initialRoute: '/homePage',
+            routes: AppRoutes.appRoutes,
+            initialRoute: AppRoutes.initialRoute,
 
             /// Localization
             localizationsDelegates: AppLocalizations.localizationsDelegates,

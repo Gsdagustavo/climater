@@ -1,12 +1,12 @@
 import 'package:climater/core/constants/version.dart';
 import 'package:climater/l10n/app_localizations.dart';
-import 'package:climater/providers/last_update_provider.dart';
-import 'package:climater/providers/theme_provider.dart';
-import 'package:climater/providers/weather_provider.dart';
+import 'package:climater/presentation/states/last_update_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../util/temperature_util.dart';
+import '../../util/temperature_util.dart';
+import '../states/theme_provider.dart';
+import '../states/weather_provider.dart';
 import '../widgets/weather_widget.dart';
 
 /// This is the Home Page of the app.
@@ -15,6 +15,8 @@ import '../widgets/weather_widget.dart';
 /// will be added
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  static const String route = '/home';
 
   @override
   Widget build(BuildContext context) {
