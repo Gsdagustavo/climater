@@ -151,8 +151,6 @@ class WeatherData {
     _maxTemp = calculate(_maxTemp);
     _minTemp = calculate(_minTemp);
     _feelsLike = calculate(_feelsLike);
-
-    await WeatherController().insert(weatherData: this);
   }
 
   /// Returns a capitalized version of the [description]

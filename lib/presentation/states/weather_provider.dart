@@ -1,4 +1,4 @@
-import 'package:climater/database/database.dart';
+import 'package:climater/modules/weather_data/weather_data_usecase.dart';
 import 'package:climater/presentation/states/last_update_provider.dart';
 import 'package:climater/services/location_service.dart';
 import 'package:climater/services/unit_service.dart';
@@ -17,7 +17,8 @@ import '../../util/temperature_util.dart';
 /// It uses the [WeatherService] and [LocationService] to fetch data from the
 /// APIs and organizes it on the [_weatherData] variable
 class WeatherProvider with ChangeNotifier {
-  final WeatherController _weatherController = WeatherController();
+  final WeatherDataUseCaseImpl _weatherDataUseCase;
+
   LastUpdateProvider lastUpdateProvider;
 
   WeatherData? _weatherData;
@@ -28,22 +29,14 @@ class WeatherProvider with ChangeNotifier {
   bool _hasError = false;
   String? _errorMessage;
 
-  WeatherData? get weatherData => _weatherData;
-
-  bool get isLoading => _isLoading;
-
-  bool get hasError => _hasError;
-
-  String? get errorMessage => _errorMessage;
-
-  WeatherProvider(this.lastUpdateProvider) {
+  WeatherProvider(this.lastUpdateProvider, this._weatherDataUseCase) {
     _init();
   }
 
   /// Initilizes the state by loading all data
-  _init() async {
+  void _init() async {
     await _loadTemperatureUnit();
-    await _getCachedWeatherData();
+    await _loadWeatherData();
     await getWeatherData();
   }
 
@@ -76,7 +69,7 @@ class WeatherProvider with ChangeNotifier {
     }
 
     _weatherData = WeatherData.fromJson(json: data);
-    await _weatherController.insert(weatherData: _weatherData!);
+    await _weatherDataUseCase.saveWeatherData(weatherData);
 
     _hasError = false;
     _errorMessage = null;
@@ -92,17 +85,17 @@ class WeatherProvider with ChangeNotifier {
   }
 
   /// Gets the [WeatherData] stored in the database
-  Future<void> _getCachedWeatherData() async {
+  Future<void> _loadWeatherData() async {
     _isLoading = true;
     notifyListeners();
 
-    final result = await _weatherController.select();
+    final newWeatherData = await _weatherDataUseCase.loadWeatherData();
 
-    if (result == null) {
+    if (newWeatherData == null) {
       return;
     }
 
-    _weatherData = WeatherData.fromMap(map: result);
+    _weatherData = newWeatherData;
 
     _isLoading = false;
     notifyListeners();
@@ -151,4 +144,12 @@ class WeatherProvider with ChangeNotifier {
   void updateLastUpdateProvider(LastUpdateProvider newProvider) {
     lastUpdateProvider = newProvider;
   }
+
+  WeatherData? get weatherData => _weatherData;
+
+  bool get isLoading => _isLoading;
+
+  bool get hasError => _hasError;
+
+  String? get errorMessage => _errorMessage;
 }

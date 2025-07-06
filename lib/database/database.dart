@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-import '../entities/weather_data.dart';
 
 /// This class represents a connection with the SQLite database
 class DBConnection {
@@ -59,46 +56,4 @@ class WeatherTable {
     $windSpeed REAL
   );
   ''';
-}
-
-/// This class is a controller for making operations (insert, select) in the Weather table
-class WeatherController {
-  Future<void> insert({required WeatherData weatherData}) async {
-    final startTime = DateTime.now();
-    final db = await DBConnection().getDatabase();
-
-    final json = weatherData.toJson();
-
-    // deletes the last weather data in the table
-    await db.delete(WeatherTable.tableName);
-
-    // adds the new weather data into the table
-    await db.insert(WeatherTable.tableName, json);
-
-    final endTime = DateTime.now();
-    final deltaTime = endTime.difference(startTime);
-
-    debugPrint('Insert took ${deltaTime.inMilliseconds} ms');
-  }
-
-  Future<Map<String, dynamic>?> select() async {
-    final startTime = DateTime.now();
-
-    final db = await DBConnection().getDatabase();
-    final result = await db.query(WeatherTable.tableName);
-
-    final endTime = DateTime.now();
-    final deltaTime = endTime.difference(startTime);
-
-    debugPrint('Select took ${deltaTime.inMilliseconds} ms');
-    // debugPrint('DB Select result length: ${result.length}');
-
-    if (result.isEmpty) {
-      return null;
-    }
-
-    // since the table will have only 1 row always, it is safe to return the
-    // first index of the list
-    return result[0];
-  }
 }

@@ -1,3 +1,5 @@
+import 'package:climater/modules/weather_data/weather_data_repository.dart';
+import 'package:climater/modules/weather_data/weather_data_usecase.dart';
 import 'package:climater/presentation/states/last_update_provider.dart';
 import 'package:climater/presentation/states/weather_provider.dart';
 import 'package:climater/presentation/widgets/my_app.dart';
@@ -9,6 +11,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  final weatherDataRepository = WeatherDataRepositoryImpl();
+  final weatherDataUseCase = WeatherDataUseCaseImpl(weatherDataRepository);
+
   /// Loads the environment variables (API Keys) from the .env file
   await dotenv.load();
   runApp(
@@ -18,7 +23,10 @@ void main() async {
 
         ChangeNotifierProxyProvider<LastUpdateProvider, WeatherProvider>(
           create: (context) {
-            return WeatherProvider(context.read<LastUpdateProvider>());
+            return WeatherProvider(
+              context.read<LastUpdateProvider>(),
+              weatherDataUseCase,
+            );
           },
 
           update: (context, lastUpdateProvider, previous) {
