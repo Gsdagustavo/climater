@@ -102,7 +102,7 @@ class WeatherProvider with ChangeNotifier {
       return;
     }
 
-    _weatherData = WeatherData.fromCachedJson(json: result);
+    _weatherData = WeatherData.fromMap(map: result);
 
     _isLoading = false;
     notifyListeners();

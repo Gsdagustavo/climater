@@ -55,12 +55,6 @@ class WeatherData {
     final Map<String, dynamic> weather = json['weather'][0];
     final Map<String, dynamic> wind = json['wind'];
 
-    // debugPrint('WeatherData from json::\n');
-    // debugPrint('coords: $coord');
-    // debugPrint('main: $main');
-    // debugPrint('weather: $weather');
-    // debugPrint('wind: $wind');
-
     final rainData = json['rain'] as Map<String, dynamic>?;
     final rainLastHour =
         rainData != null && rainData.containsKey('1h') ? rainData['1h'] : 0.0;
@@ -94,37 +88,37 @@ class WeatherData {
     );
   }
 
-  /// Returns a [WeatherData] from the given [json] and [UnitSystem]
+  /// Returns a [WeatherData] from the given [map] and [UnitSystem]
   ///
   /// This factory is intented to be used when retrieving data from the
   /// database
-  factory WeatherData.fromCachedJson({required Map<String, dynamic> json}) {
+  factory WeatherData.fromMap({required Map<String, dynamic> map}) {
     return WeatherData(
       // location
-      city: json['city'],
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
+      city: map[WeatherTable.city],
+      latitude: (map[WeatherTable.latitude] as num).toDouble(),
+      longitude: (map[WeatherTable.longitude] as num).toDouble(),
 
       // main
-      main: json['main'],
-      description: json['description'],
+      main: map[WeatherTable.main],
+      description: map[WeatherTable.description],
 
       // temperature
-      temperature: (json['temperature'] as num).toDouble(),
-      maxTemp: (json['maxTemp'] as num).toDouble(),
-      minTemp: (json['minTemp'] as num).toDouble(),
-      feelsLike: (json['feelsLike'] as num).toDouble(),
+      temperature: (map[WeatherTable.temperature] as num).toDouble(),
+      maxTemp: (map[WeatherTable.maxTemp] as num).toDouble(),
+      minTemp: (map[WeatherTable.minTemp] as num).toDouble(),
+      feelsLike: (map[WeatherTable.feelsLike] as num).toDouble(),
 
       // pressure and humidity
-      humidity: json['humidity'],
-      pressure: json['pressure'],
+      humidity: map[WeatherTable.humidity],
+      pressure: map[WeatherTable.pressure],
 
       // rain
-      rain: (json['rain'] as num).toDouble(),
+      rain: (map[WeatherTable.rain] as num).toDouble(),
 
       // wind
-      windDirection: (json['windDirection'] as num).toInt(),
-      windSpeed: (json['windSpeed'] as num).toDouble(),
+      windDirection: (map[WeatherTable.windDirection] as num).toInt(),
+      windSpeed: (map[WeatherTable.windSpeed] as num).toDouble(),
     );
   }
 
@@ -132,20 +126,20 @@ class WeatherData {
   /// database
   Map<String, dynamic> toJson() {
     return {
-      'city': _city,
-      'latitude': _latitude,
-      'longitude': _longitude,
-      'main': _main,
-      'description': _description,
-      'temperature': _temperature,
-      'minTemp': _minTemp,
-      'maxTemp': _maxTemp,
-      'feelsLike': _feelsLike,
-      'pressure': _pressure,
-      'humidity': _humidity,
-      'rain': _rain,
-      'windSpeed': _windSpeed,
-      'windDirection': _windDirection,
+      WeatherTable.city: _city,
+      WeatherTable.latitude: _latitude,
+      WeatherTable.longitude: _longitude,
+      WeatherTable.main: _main,
+      WeatherTable.description: _description,
+      WeatherTable.temperature: _temperature,
+      WeatherTable.minTemp: _minTemp,
+      WeatherTable.maxTemp: _maxTemp,
+      WeatherTable.feelsLike: _feelsLike,
+      WeatherTable.pressure: _pressure,
+      WeatherTable.humidity: _humidity,
+      WeatherTable.rain: _rain,
+      WeatherTable.windSpeed: _windSpeed,
+      WeatherTable.windDirection: _windDirection,
     };
   }
 
