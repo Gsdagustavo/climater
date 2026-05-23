@@ -1,23 +1,23 @@
 
-# 🌦️ Climater
+# Climater
 
 **Climater** is a modern and intuitive weather app built with Flutter. It provides current weather information based on
 your location, using data from the OpenWeatherMap API. The app features a clean interface, dark/light theme support, unit toggling, data caching, internationalization, and more.
 
-## 🚀 Features
+## Features
 
-- 📍 Fetches weather based on your **current location**
-- 🌤 Displays real-time weather data using the **OpenWeatherMap API**
-- 💾 **Caches weather data** locally using **SQLite**
-- 🕓 Displays **last updated time** in the app bar
-- 🌡 Toggle between **Celsius and Fahrenheit**, with preferences saved via `shared_preferences`
-- 🌍 **Internationalization**: Supports **English** and **Portuguese**
-- 🌙 Light and dark theme modes, persisted across sessions
-- 🎞 Smooth **temperature animation** with `Tween`
-- ⚙️ Uses `provider` for state management
-- 🔐 Secures your API key with `.env` and `flutter_dotenv`
+- Fetches weather based on your **current location**
+- Displays real-time weather data using the **OpenWeatherMap API**
+- **Caches weather data** locally using **SQLite**
+- Displays **last updated time** in the app bar
+- Toggle between **Celsius and Fahrenheit**, with preferences saved via `shared_preferences`
+- **Internationalization**: Supports **English** and **Portuguese**
+- Light and dark theme modes, persisted across sessions
+- Smooth **temperature animation** with `Tween`
+- Uses `provider` for state management
+- Secures your API key with `.env` and `flutter_dotenv`
 
-## 🛠 Built With
+## Built With
 
 - **Flutter** – UI toolkit for beautiful native apps
 - **OpenWeatherMap API** – Weather data provider
@@ -28,7 +28,7 @@ your location, using data from the OpenWeatherMap API. The app features a clean 
 - **Flutter Intl + flutter_localizations** – Language support
 - **Flutter Dotenv** – Environment variable management
 
-## 📦 Dependencies
+## Dependencies
 
 These are the main dependencies used in this project (from [`pubspec.yaml`](pubspec.yaml)):
 
@@ -55,9 +55,9 @@ dependencies:
   flutter_gen: ^5.10.0
 ````
 
-> ℹ️ Run `flutter pub get` after modifying dependencies. You can check for updates using `flutter pub outdated`.
+> Run `flutter pub get` after modifying dependencies. You can check for updates using `flutter pub outdated`.
 
-## 🗝️ API Key Setup
+## API Key Setup
 
 1. Create a `.env` file in the root of your project:
 
@@ -88,14 +88,14 @@ dependencies:
    .env
    ```
 
-## 🖼 Screenshots
+## Screenshots
 
 ![Climater Home Screen (Dark Mode)](assets/screenshots/home_dark.png)
 ![Climater Home Screen (Light Mode)](assets/screenshots/home_light.png)
 ![Climater Drawer (Dark Mode)](assets/screenshots/drawer_dark.png)
 ![Climater Drawer (Light Mode)](assets/screenshots/drawer_light.png)
 
-## 🔧 Getting Started
+## Getting Started
 
 ```bash
 git clone https://github.com/Gsdagustavo/climater.git
@@ -111,14 +111,12 @@ flutter pub get
   flutter run
   ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Feel free to fork this repo and open a pull request with improvements or new features.
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-Made with ❤️ using Flutter.
